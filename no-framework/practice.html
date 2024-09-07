@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!--tells website dont mess with how it displays and its mobile first-->
+    <title>Dropdown menu</title> <!-- This is used for seo, search engine optimization-->
+    <!--<link href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" rel="stylesheet">-->
+    <style>
+    body {
+    background-color: rgba(255, 0, 0, 0.638);
+}
+
+.dropbtn {
+    background-color: red;
+    color: black;
+    padding: 16px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: red;
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content h1 {
+    color: black;
+    padding: 2px 20px;
+    text-decoration: none;
+    display: block;
+    background-color: red;
+    font-size: 20px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropdown-edit {
+    display: block;
+}
+
+
+
+.dropdown:hover .dropdown-view {
+    display: block;
+}
+
+
+.dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+
+.dropdown-edit {
+    display: none;
+    position: absolute;
+    background-color: red;
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+
+
+.dropdown-edit h1 {
+    color: black;
+    padding: 2px 20px;
+    text-decoration: none;
+    display: block;
+    background-color: red;
+    font-size: 20px;
+}
+
+.dropdown-view {
+    display: none;
+    position: absolute;
+    background-color: red;
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-view h1 {
+    color: black;
+    padding: 2px 20px;
+    text-decoration: none;
+    display: block;
+    background-color: red;
+    font-size: 20px;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    background-color: red;
+    padding: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.edit:focus + .dropdown-edit, .dropdown-edit:focus {
+    display: block;
+}
+
+    </style>
+</head>
+<body>
+
+    
+    <nav>
+    <div class="dropdown">
+        <button class="dropbtn">File</button>
+        <div class="dropdown-content">
+            <h1>New</h1>
+            <h1>Open</h1>
+            <h1>Save</h1>
+            <h1>Print</h1>
+            <h1>Close</h1>
+            </div>
+    </div>
+   
+
+   <div class="dropdown">
+    <button class="dropbtn edit">Edit</button>
+    <div class="dropdown-edit" tabindex="1">
+        <h1>Undo</h1>
+        <h1>Redo</h1>
+        <h1>Cut</h1>
+        <h1>Copy</h1>
+        <h1>Paste</h1>
+        <h1>Delete</h1>
+        <h1>Select All</h1>
+    </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">View</button>
+        <div class="dropdown-view">
+            <h1>Zoom In</h1>
+            <h1>Zoom Out</h1>
+            <h1>Fit Page</h1>
+            <h1>Fit Width</h1>
+            <h1>Fit Height</h1>
+            <h1>Rotate Left</h1>
+            <h1>Rotate Right</h1>
+            <h1>Rotate Full Screen</h1>
+        </div>
+    </div>
+</nav>
+</body>
+
+
+</html>
