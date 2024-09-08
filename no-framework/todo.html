@@ -12,9 +12,76 @@
             display: block;
             padding: 10px;
         }
+
+        .blue-row {
+      background-color: lightblue;
+      color: white;
+      padding: 10px;
+    }
+
+    .bd-tw-button {
+      left: 55%;
+    }
+    .download {
+      left: 65%;
+    }
+
+    
+
+
     </style>
 </head>
 <body>
+  <div class="blue-row">
+    <button class="button is-light is-outlined">Home</button>
+    
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="myDropdown">
+        <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span>Docs</span>
+                <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+                <a href="#" class="dropdown-item">Overview</a>
+                <a class="dropdown-item">Modifiers</a>
+                <a href="#" class="dropdown-item is-active">Columns</a>
+                <a href="#" class="dropdown-item">Layout</a>
+                <a href="#" class="dropdown-item">Form</a>
+                <hr class="dropdown-divider" />
+                <a href="#" class="dropdown-item">Elements</a>
+                <a href="#" class="dropdown-item">Components</a>
+            </div>
+        </div>
+    </div>
+
+    <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="https://bulma.io" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms">
+      <span class="icon">
+        <i class="fab fa-twitter"></i>
+      </span>
+      <span>
+        Tweet
+      </span>
+    </a>
+
+   
+      <a class="button download is-primary" href="https://github.com/jgthms/bulma/releases/download/0.9.3/bulma-0.9.3.zip">
+        <span class="icon">
+          <i class="fas fa-download"></i>
+        </span>
+        <span>Download</span>
+      </a>
+   
+
+
+</div>
+
+  
+    
     <div class="columns">
         <div class="column">
             <div class="box">
@@ -82,7 +149,6 @@
                 </label>
             </div>
 
-    <div class="block"></div>
 
     <div class="box"
         <div class="notification is-success is-light">
@@ -208,5 +274,27 @@
       </aside>
       </div>
     </div>
+
+    <script>
+      // JavaScript to toggle the dropdown
+      document.addEventListener('DOMContentLoaded', () => {
+          const dropdown = document.getElementById('myDropdown');
+          const trigger = dropdown.querySelector('.dropdown-trigger button');
+  
+          trigger.addEventListener('click', function(event) {
+              event.stopPropagation(); // Prevents click from bubbling up
+              dropdown.classList.toggle('is-active'); // Toggles the 'is-active' class
+          });
+  
+          // Optional: close the dropdown when clicking outside
+          document.addEventListener('click', function(event) {
+              if (!dropdown.contains(event.target)) {
+                  dropdown.classList.remove('is-active');
+              }
+          });
+      });
+  </script>
 </body>
+
+
 </html>
