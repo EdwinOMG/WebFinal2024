@@ -8,25 +8,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
 
     <style>
+        .checkbox {
+            display: block;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
-        
-    <div class="box">
-    <article class="message">
-        <div class="message-header">
-          <p>Component</p>
-          <button class="delete" aria-label="delete"></button>
-        </div>
-        <div class="message-body">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec
-          nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus
-          diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac
-          <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et
-          sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a
-          neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
-        </div>
+    <div class="columns">
+        <div class="column">
+            <div class="box">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Component</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+        <div class="message-body">blahhhhhhhhhhhh</div>
         <button class="button is-link is-light">Save</button>
         <button class="button is-link is-light">Edit</button>
         <button class="button is-link is-light">Delete</button>
@@ -34,79 +31,72 @@
       </article>
 
     </div>
-
-    <div class="box">
-        <div class="tabs">
-            <a class="icon-text is-active" href="#">
-                <span class="icon">
-                    <i class="fas fa-clipboard"></i>
-                </span>
-                <span>Current</span>
-            </a>
-            <a class="icon-text" href="#">
-                <span class="icon">
-                    <i class="fas fa-check"></i>
-                </span>
-                <span>Completed</span>
-            </a>
-            <a class="icon-text" href="#">
-                <span class="icon">
-                    <i class="fa-regular fa-calendar"></i>
-                </span>
-                <span>Upcoming</span>
-            </a>
-            <a class="icon-text" href="#">
-                <span class="icon">
-                    <i class="fas fa-calendar"></i>
-                </span>
-                <span>All</span>
-            </a>
-        </div>
-        <div class="columns">
-        <label class="column checkbox">
-            <input type="checkbox" />
-            Make Bulma great again
-          </label>
-          <label class="column checkbox">
-            <input type="checkbox" />
-            Add some features
-          </label>
-          <label class="column checkbox">
-            <input type="checkbox" />
-            Make a github account
-          </label>
-          <label class="column checkbox">
-            <input type="checkbox" />
-            Learn how to use github
-          </label>
-          <label class="column checkbox">
-            <input type="checkbox" />
-            add a .gitignore file
-          </label>
-</div>
-<div class="block"></div>
-<div class="box"
-<div class="notification is-success is-light">
-        <button class="delete"></button>
-
-    <h4 class="title is-4">Make a github account</h4>
-    Go to github.com and create an account. That's where you'll be able to share your work with the world.. thats where we will be putting all of our code for this class.
-  </div>
-    <progress class="progress is-primary" value="30" max="100">
-    30%
-  </progress>
-
-
     </div>
+    <div class="column">
+        <div class="box">
+            <div class="tabs">
+                <a class="icon-text is-active" href="#">
+                    <span class="icon">
+                        <i class="fas fa-clipboard"></i>
+                    </span>
+                    <span>Current</span>
+                </a>
+                <a class="icon-text" href="#">
+                    <span class="icon">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span>Completed</span>
+                </a>
+                <a class="icon-text" href="#">
+                    <span class="icon">
+                        <i class="fa-regular fa-calendar"></i>
+                    </span>
+                    <span>Upcoming</span>
+                </a>
+                <a class="icon-text" href="#">
+                    <span class="icon">
+                        <i class="fas fa-calendar"></i>
+                    </span>
+                    <span>All</span>
+                </a>
+            </div>
 
+            <div class="control">
+                <input class="input" type="text" placeholder="Normal input" />
+            </div>
+            <div class="column">
+                <label class="checkbox is-block">
+                    <input type="checkbox" />Make Bulma great again
+                </label>
+                <label class="checkbox is-block">
+                    <input type="checkbox" />Add some features
+                </label>
+                <label class="checkbox is-block">
+                    <input type="checkbox" />Make a GitHub account
+                </label>
+                <label class="checkbox is-block">
+                    <input type="checkbox" />Learn how to use GitHub
+                </label>
+                <label class="checkbox is-block">
+                    <input type="checkbox" />Add a .gitignore file
+                </label>
+            </div>
+
+    <div class="block"></div>
+
+    <div class="box"
+        <div class="notification is-success is-light">
+        <button class="delete"></button>
+        <h4 class="title is-4">Make a github account</h4>Go to github.com and create an account. That's where you'll be able to share your work with the world.. thats where we will be putting all of our code for this class.</div>
+        <progress class="progress is-primary" value="30" max="100">30%</progress>
+    </div>
     <div class="field">
         <label class="label">Name</label>
         <div class="control">
           <input class="input" type="text" placeholder="Text input">
         </div>
-      </div>
-      
-      <div class="field">
+    </div>
+    <div class="field">
         <label class="label">Username</label>
         <div class="control has-icons-left has-icons-right">
           <input class="input is-success" type="text" placeholder="Text input" value="bulma">
@@ -118,7 +108,7 @@
           </span>
         </div>
         <p class="help is-success">This username is available</p>
-      </div>
+    </div>
       
       <div class="field">
         <label class="label">Email</label>
@@ -183,9 +173,11 @@
           <button class="button is-link is-light">Cancel</button>
         </div>
       </div>
+      </div>
+
+    <div class="column">
       <h3 class="title is-3">Table of Contents</h3>
       <h5 class="subtitle is-5">Intra-page navigation</h5>
-
       <aside class="menu">
         <p class="menu-label">General</p>
         <ul class="menu-list">
@@ -214,4 +206,7 @@
           <li><a>Balance</a></li>
         </ul>
       </aside>
+      </div>
+    </div>
 </body>
+</html>
