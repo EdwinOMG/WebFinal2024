@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!--tells website dont mess with how it displays and its mobile first-->
+    <title>Dropdown menu</title> <!-- This is used for seo, search engine optimization-->
+    <link href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+
+    <style>
+    </style>
+</head>
+<body>
+        
+    <div class="box">
+    <article class="message">
+        <div class="message-header">
+          <p>Component</p>
+          <button class="delete" aria-label="delete"></button>
+        </div>
+        <div class="message-body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec
+          nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus
+          diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac
+          <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et
+          sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a
+          neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+        </div>
+        <button class="button is-link is-light">Save</button>
+        <button class="button is-link is-light">Edit</button>
+        <button class="button is-link is-light">Delete</button>
+
+      </article>
+
+    </div>
+
+    <div class="box">
+        <div class="tabs">
+            <a class="icon-text is-active" href="#">
+                <span class="icon">
+                    <i class="fas fa-clipboard"></i>
+                </span>
+                <span>Current</span>
+            </a>
+            <a class="icon-text" href="#">
+                <span class="icon">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span>Completed</span>
+            </a>
+            <a class="icon-text" href="#">
+                <span class="icon">
+                    <i class="fa-regular fa-calendar"></i>
+                </span>
+                <span>Upcoming</span>
+            </a>
+            <a class="icon-text" href="#">
+                <span class="icon">
+                    <i class="fas fa-calendar"></i>
+                </span>
+                <span>All</span>
+            </a>
+        </div>
+        <div class="columns">
+        <label class="column checkbox">
+            <input type="checkbox" />
+            Make Bulma great again
+          </label>
+          <label class="column checkbox">
+            <input type="checkbox" />
+            Add some features
+          </label>
+          <label class="column checkbox">
+            <input type="checkbox" />
+            Make a github account
+          </label>
+          <label class="column checkbox">
+            <input type="checkbox" />
+            Learn how to use github
+          </label>
+          <label class="column checkbox">
+            <input type="checkbox" />
+            add a .gitignore file
+          </label>
+</div>
+<div class="block"></div>
+<div class="box"
+<div class="notification is-success is-light">
+        <button class="delete"></button>
+
+    <h4 class="title is-4">Make a github account</h4>
+    Go to github.com and create an account. That's where you'll be able to share your work with the world.. thats where we will be putting all of our code for this class.
+  </div>
+    <progress class="progress is-primary" value="30" max="100">
+    30%
+  </progress>
+
+
+    </div>
+
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Text input">
+        </div>
+      </div>
+      
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-success" type="text" placeholder="Text input" value="bulma">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+        <p class="help is-success">This username is available</p>
+      </div>
+      
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-danger" type="email" placeholder="Email input" value="hello@">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span>
+        </div>
+        <p class="help is-danger">This email is invalid</p>
+      </div>
+      
+      <div class="field">
+        <label class="label">Subject</label>
+        <div class="control">
+          <div class="select">
+            <select>
+              <option>Select dropdown</option>
+              <option>With options</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label class="label">Message</label>
+        <div class="control">
+          <textarea class="textarea" placeholder="Textarea"></textarea>
+        </div>
+      </div>
+      
+      <div class="field">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">
+            I agree to the <a href="#">terms and conditions</a>
+          </label>
+        </div>
+      </div>
+      
+      <div class="field">
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="question">
+            Yes
+          </label>
+          <label class="radio">
+            <input type="radio" name="question">
+            No
+          </label>
+        </div>
+      </div>
+      
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link">Submit</button>
+        </div>
+        <div class="control">
+          <button class="button is-link is-light">Cancel</button>
+        </div>
+      </div>
+      <h3 class="title is-3">Table of Contents</h3>
+      <h5 class="subtitle is-5">Intra-page navigation</h5>
+
+      <aside class="menu">
+        <p class="menu-label">General</p>
+        <ul class="menu-list">
+          <li><a>Dashboard</a></li>
+          <li><a>Customers</a></li>
+        </ul>
+        <p class="menu-label">Administration</p>
+        <ul class="menu-list">
+          <li><a>Team Settings</a></li>
+          <li>
+            <a class="is-active">Manage Your Team</a>
+            <ul>
+              <li><a>Members</a></li>
+              <li><a>Plugins</a></li>
+              <li><a>Add a member</a></li>
+            </ul>
+          </li>
+          <li><a>Invitations</a></li>
+          <li><a>Cloud Storage Environment Settings</a></li>
+          <li><a>Authentication</a></li>
+        </ul>
+        <p class="menu-label">Transactions</p>
+        <ul class="menu-list">
+          <li><a>Payments</a></li>
+          <li><a>Transfers</a></li>
+          <li><a>Balance</a></li>
+        </ul>
+      </aside>
+</body>
