@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ToDoList</title>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+
+    <style>
+        .head {
+            text-align: center;
+            font-size: 100px;
+            color: black;
+        }
+        .addButton {
+            cursor:pointer;
+
+        }
+        .centerDiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Add the #app root element where Vue will mount -->
+    <div id="app">
+        <div class="centerDiv">
+            <h1 class="head">To-Do List</h1>
+
+            <!-- Bind the input and button to Vue -->
+            <input class="addInput" type="text" placeholder="Add a task" v-model="newTask">
+            <button class="button is-dark are-medium is-outlined is-rounded" @click="addTask">Add</button>
+        </div>
+
+        <section class="section is-medium">
+            <h1 class="title">Your list!</h1>
+            <h2 class="subtitle">
+                <ul class="taskList">
+                    <!-- Loop through the tasks array and display each as a list item -->
+                    <li v-for="task in tasks" :key="task">{{ task }}</li>
+                </ul>
+            </h2>
+        </section>
+    </div>
+
+    <!-- Import Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <script>
+        const { createApp, ref } = Vue
+
+        createApp({
+            setup() {
+                // Reactive reference for the task input and tasks array
+                const newTask = ref('');
+                const tasks = ref([]);
+
+                // Function to add a task to the list
+                const addTask = () => {
+                    if (newTask.value.trim()) {
+                        tasks.value.push(newTask.value);
+                        newTask.value = '';  // Clear input after adding the task
+                    }
+                }
+
+                // Return reactive variables and functions to the template
+                return { newTask, tasks, addTask };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
