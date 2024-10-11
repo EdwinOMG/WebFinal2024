@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import LogPage from './pages/LogPage.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
   <header>
-    <LogPage />
   </header>
 
   <div class="container">
@@ -14,5 +12,4 @@ import LogPage from './pages/LogPage.vue';
 </template>
 
 <style scoped>
-
 </style>
