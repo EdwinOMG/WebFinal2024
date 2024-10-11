@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-const search
+import { ref } from 'vue'
+const search = ref('')
 
 const searchExercises = () => {
-    console.log('Searching for ${search.value}');
-};
+  console.log('Searching for ${search.value}')
+}
 </script>
 
 <template>
@@ -27,7 +27,4 @@ const searchExercises = () => {
   </div>
 </template>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>
