@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import ExerciseSearch from "@/components/ExerciseSearch.vue";
 </script>
 
 <template>
   <div>
-    
+    <ExerciseSearch />
   </div>
 </template>
