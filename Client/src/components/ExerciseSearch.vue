@@ -104,6 +104,10 @@ const clearSearch = () => {
   background-color: rgba(10, 10, 10, 0.4);
 }
 
+.control {
+  position: relative;
+  
+}
 .modal-content {
   max-width: 500px;
   margin: 0 auto;
