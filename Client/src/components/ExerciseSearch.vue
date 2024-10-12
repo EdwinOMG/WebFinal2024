@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
-
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 const search = ref('')
 const isPopupOpen = ref(false)
-const exercises = ref([
-  { name: 'Push-up', logo: '🏋️' },
-  { name: 'Squat', logo: '🦵' },
-  { name: 'Bench Press', logo: '💪' },
-  { name: 'Deadlift', logo: '🏋️‍♂️' },
-  { name: 'Pull-up', logo: '🤸‍♂️' }
-])
+const exercises = ref([{ name: 'Walking', logo: faMagnifyingGlass }])
 
 const searchExercises = () => {
   console.log(`Searching for ${search.value}`)
