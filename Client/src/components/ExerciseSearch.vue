@@ -50,11 +50,13 @@ const clearSearch = () => {
         <span class="icon is-small is-left">
           <i class="fas fa-search"></i>
         </span>
-        <button
-          v-if="search"
-          class="delete is-small bulma-delete-mixin"
-          @click="clearSearch"
-        ></button>
+        <span class="icon is-right">
+          <button
+            v-if="search"
+            class="delete is-medium bulma-delete-mixin"
+            @click="clearSearch"
+          ></button>
+        </span>
       </div>
     </div>
 
@@ -104,10 +106,6 @@ const clearSearch = () => {
   background-color: rgba(10, 10, 10, 0.4);
 }
 
-.control {
-  position: relative;
-  
-}
 .modal-content {
   max-width: 500px;
   margin: 0 auto;
@@ -115,6 +113,7 @@ const clearSearch = () => {
 
 .exercise-list {
   margin-top: 20px;
+  background-color: #cbc3e3;
 }
 
 .icon-color {
@@ -126,6 +125,14 @@ const clearSearch = () => {
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.exercise-name {
+  color: black;
+}
+.exercise-item:hover {
+  background-color: white;
 }
 
 .exercise-logo {
