@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+
 const search = ref('')
 const isPopupOpen = ref(false)
-const exercises = ref([{ name: 'Walking', logo: faMagnifyingGlass }])
+const exercises = ref([
+  { name: 'Walking', logo: '🚶' },
+  { name: 'Running', logo: '🏃' },
+  { name: 'Cycling', logo: '🚴' }
+])
 
 const searchExercises = () => {
   console.log(`Searching for ${search.value}`)
@@ -17,23 +21,40 @@ const openPopup = () => {
 const closePopup = () => {
   isPopupOpen.value = false
 }
+
+const selectExercise = (exercise: { name: string }) => {
+  console.log(`selected ${exercise.name}`)
+  search.value = exercise.name
+
+  closePopup()
+}
+
+const clearSearch = () => {
+  search.value = ''
+}
 </script>
 
 <template>
   <div>
     <div class="field">
       <label class="label">Search for an exercise</label>
-      <div class="control has-icons-left">
+      <div class="control has-icons-left has-icons-right">
         <input
           class="input"
           type="text"
+          v-model="search"
           placeholder="Click to search"
           @focus="openPopup"
           readonly
         />
         <span class="icon is-small is-left">
-          <FontAwesomeIcon icon="faMagnifyingGlass" class="icon-color" />
+          <i class="fas fa-search"></i>
         </span>
+        <button
+          v-if="search"
+          class="delete is-small bulma-delete-mixin"
+          @click="clearSearch"
+        ></button>
       </div>
     </div>
 
@@ -42,7 +63,6 @@ const closePopup = () => {
       <div class="modal-background" @click="closePopup"></div>
       <div class="modal-content">
         <div class="box">
-          <!-- Search input -->
           <div class="field">
             <label class="label">Search for an exercise</label>
             <div class="control has-icons-left">
@@ -61,7 +81,12 @@ const closePopup = () => {
 
           <div class="exercise-list">
             <ul>
-              <li v-for="exercise in exercises" :key="exercise.name" class="exercise-item">
+              <li
+                v-for="exercise in exercises"
+                :key="exercise.name"
+                class="exercise-item"
+                @click="selectExercise(exercise)"
+              >
                 <span class="exercise-logo">{{ exercise.logo }}</span>
                 <span class="exercise-name">{{ exercise.name }}</span>
               </li>
