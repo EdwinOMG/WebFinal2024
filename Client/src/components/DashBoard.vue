@@ -15,7 +15,8 @@
         </div>
       </div>
       <div class="column">
-        <div class="box">
+        <div class="box friendscolumn">
+          <h2 class="title">Friends</h2>
           <h2 class="title">Share with Friends</h2>
           <input type="text" placeholder="Enter friend's email" class="input" />
           <button class="button is-primary">Share</button>
@@ -32,8 +33,14 @@
 }
 .profilebox {
   margin-left: -50px;
+  height: 30vh;
 }
 .logbox {
   margin-left: -50px;
+  height: 50vh;
+  margin-top: 30px;
+}
+.friendscolumn {
+  height: 84vh;
 }
 </style>
