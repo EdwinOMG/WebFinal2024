@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
-
+<script setup lang="ts">
+import RegisterBox from '@/components/RegisterBox.vue'
+</script>
 <template>
-  <div></div>
+  <div>
+    <RegisterBox />
+  </div>
 </template>
 
 <style scoped></style>
