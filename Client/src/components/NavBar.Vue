@@ -4,16 +4,9 @@
   <div>
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item">
-          <svg
-            width="640"
-            height="160"
-            viewBox="0 0 640 160"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          ></svg>
-        </a>
-
+        <RouterLink to="/homepage" class="navbar-item"> Sign Up </RouterLink>
+        <img src="@/assets/logo.png" alt="Logo" width="100" height="28" />
+        <!-- Move the navbar-burger button inside the navbar-brand -->
         <a
           role="button"
           class="navbar-burger"
