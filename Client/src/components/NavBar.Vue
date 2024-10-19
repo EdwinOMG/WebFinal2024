@@ -3,24 +3,11 @@
 <template>
   <div>
     <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <RouterLink to="/homepage" class="navbar-item"> Sign Up </RouterLink>
-        <img src="@/assets/logo.png" alt="Logo" width="100" height="28" />
-        <!-- Move the navbar-burger button inside the navbar-brand -->
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+      <div class="navbar-logo">
+        <RouterLink to="/homepage" class="navbar-item">
+          <img src="@/assets/logo.png" alt="Logo" width="100" height="28" class="large-logo" />
+        </RouterLink>
       </div>
-
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
           <RouterLink to="/homepage" class="navbar-item"> Home </RouterLink>
@@ -95,5 +82,8 @@
 
 .custom-button:hover {
   background-color: white;
+}
+
+.navbar-logo {
 }
 </style>
