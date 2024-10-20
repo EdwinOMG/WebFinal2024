@@ -31,11 +31,7 @@
   height: 80vh;
   width: 80vw;
 }
-.profilebox {
-  margin-left: -50px;
-  height: 30vh;
-}
-.logbox {
+.column .logbox {
   margin-left: -50px;
   height: 50vh;
   margin-top: 30px;

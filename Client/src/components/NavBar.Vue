@@ -1,28 +1,56 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const isOpen = ref(false)
+</script>
 
 <template>
   <div>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-logo">
-        <RouterLink to="/homepage" class="navbar-item">
-          <img src="@/assets/logo.png" alt="Logo" width="100" height="28" class="large-logo" />
-        </RouterLink>
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <img alt="my logo" class="logo" src="@/assets/logo.png" width="30" height="30" />
+
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          :class="{ 'is-active': isOpen }"
+          @click="isOpen = !isOpen"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-      <div id="navbarBasicExample" class="navbar-menu">
+
+      <div class="navbar-menu" :class="{ 'is-active': isOpen }">
         <div class="navbar-start">
           <RouterLink to="/homepage" class="navbar-item"> Home </RouterLink>
           <RouterLink to="/profileview" class="navbar-item"> Profile </RouterLink>
           <RouterLink to="/logpage" class="navbar-item"> Exercise Log </RouterLink>
         </div>
 
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link"> More </a>
+
+          <div class="navbar-dropdown">
+            <RouterLink to="/" class="navbar-item"> Report an issue </RouterLink>
+            <RouterLink to="/" class="navbar-item"> Contact </RouterLink>
+          </div>
+        </div>
+
+        <hr class="navbar-divider" />
+
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-light is-small custom-button">
+              <a class="button custom-button">
                 <RouterLink to="/registerpage" class="navbar-item"> Sign Up </RouterLink>
               </a>
-              <a class="button is-light custom-button">
-                <RouterLink to="/registerpage" class="navbar-item"> Login </RouterLink>
+              <a class="button custom-button">
+                <RouterLink to="/loginpage" class="navbar-item"> Login </RouterLink>
               </a>
             </div>
           </div>
@@ -34,39 +62,16 @@
 
 <style scoped>
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
   background-color: #cbc3e3;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.navbar-item {
-  font-weight: bold;
-  padding: 5px 20px;
-  color: black;
-  font-size: 1.2rem;
 }
 
-.navbar-item:hover {
-  background-color: #e0e0e0;
+.navbar-burger {
+  display: none;
 }
 
-.navbar-menu {
-  display: flex;
-  flex-grow: 1;
-  justify-content: flex-end;
-}
-
-@media (max-width: 768px) {
-  .navbar-menu {
-    flex-direction: column;
-    align-items: flex-start;
+@media screen and (max-width: 1024px) {
+  .navbar-burger {
+    display: block;
   }
 }
 
@@ -78,12 +83,5 @@
   font-size: 1rem;
   border-radius: 1px;
   transition: background-color 0.3s ease;
-}
-
-.custom-button:hover {
-  background-color: white;
-}
-
-.navbar-logo {
 }
 </style>
