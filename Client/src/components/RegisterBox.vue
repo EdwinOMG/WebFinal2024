@@ -3,7 +3,7 @@ import { ref } from 'vue'
 </script>
 
 <template>
-  <container>
+  <div class="container">
     <div class="field">
       <p class="control has-icons-left">
         <input class="input" type="text" placeholder="Username" />
@@ -13,13 +13,10 @@ import { ref } from 'vue'
       </p>
     </div>
     <div class="field">
-      <p class="control has-icons-left has-icons-right">
+      <p class="control has-icons-left">
         <input class="input" type="email" placeholder="Email" />
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
-        </span>
-        <span class="icon is-small is-right">
-          <i class="fas fa-check"></i>
         </span>
       </p>
     </div>
@@ -45,17 +42,26 @@ import { ref } from 'vue'
       </p>
     </div>
     <div class="field">
-      <p class="control link">
-        <RouterLink to="/loginpage" class="signlink">
+      <p class="control">
+        <RouterLink to="/loginpage" class="signlink is-link">
           Already have an account? Sign in here.
         </RouterLink>
       </p>
     </div>
-  </container>
+  </div>
 </template>
 
 <style scoped>
-signlink.is-link {
+.container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signlink.is-link {
   color: #00d1b2;
   text-decoration: underline;
 }
