@@ -30,12 +30,14 @@ const isOpen = ref(false)
           <RouterLink to="/homepage" class="navbar-item"> Home </RouterLink>
           <RouterLink to="/profileview" class="navbar-item"> Profile </RouterLink>
           <RouterLink to="/logpage" class="navbar-item"> Exercise Log </RouterLink>
+          <RouterLink to="/friendpage" class="navbar-item"> Find Friends </RouterLink>
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link"> More </a>
 
           <div class="navbar-dropdown">
+            <RouterLink to="/adminpage" class="navbar-item"> Admin </RouterLink>
             <RouterLink to="/" class="navbar-item"> Report an issue </RouterLink>
             <RouterLink to="/" class="navbar-item"> Contact </RouterLink>
           </div>

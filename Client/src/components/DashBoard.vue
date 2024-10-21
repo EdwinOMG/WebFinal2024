@@ -5,13 +5,29 @@ interface User {
   email: string
 }
 
+interface Workout {
+  title: string
+  location: string
+  duration: string
+  exercise: string
+  distance: number
+}
+
 const loggedInUser = ref<User | null>(null)
+const workouts = ref<Workout[]>([])
+const totalDistance = ref(0)
 
 onMounted(() => {
   const userData = sessionStorage.getItem('loggedInUser')
   if (userData) {
     loggedInUser.value = JSON.parse(userData)
   }
+  const savedWorkouts = localStorage.getItem('workouts')
+  if (savedWorkouts) {
+    workouts.value = JSON.parse(savedWorkouts)
+  }
+
+  totalDistance.value = workouts.value.reduce((sum, workout) => sum + (workout.distance || 0), 0)
 })
 </script>
 
@@ -31,6 +47,9 @@ onMounted(() => {
         </div>
         <div class="box logbox">
           <h2 class="title">Stats</h2>
+          <ul>
+            <li><strong>Total Distance Done:</strong> {{ totalDistance }} miles</li>
+          </ul>
           <ul></ul>
         </div>
       </div>
@@ -57,8 +76,8 @@ onMounted(() => {
 }
 .column .logbox {
   margin-left: -50px;
-  height: 50vh;
-  margin-top: 80px;
+  height: 58vh;
+  margin-top: 0px;
 }
 .friendscolumn {
   height: 84vh;

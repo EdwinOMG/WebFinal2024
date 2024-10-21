@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AdminBoard from '@/components/AdminBoard.vue'
+</script>
 
 <template>
-  <div></div>
+  <div>
+    <AdminBoard />
+  </div>
 </template>
 
 <style scoped></style>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { registeredUsers } from '@/data/users'
-
+import router from '@/router'
 const username = ref('')
 const email = ref('')
 const password = ref('')
@@ -29,6 +29,8 @@ const registerUser = () => {
     email.value = ''
     password.value = ''
     confirmPassword.value = ''
+    alert('Account created successfully!')
+    router.push('/loginpage')
   } else {
     alert('Passwords do not match!')
   }

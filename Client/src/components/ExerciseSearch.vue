@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const isModalOpen = ref(false)
 const workoutTitle = ref('')
@@ -9,6 +9,8 @@ const selectedExercise = ref('')
 const workoutDistance = ref('')
 
 const exercises = ref(['Running', 'Walking', 'Cycling', 'Swimming'])
+
+const editingIndex = ref<number | null>(null)
 
 interface Workout {
   title: string
@@ -26,6 +28,36 @@ const openModal = () => {
 
 const closeModal = () => {
   isModalOpen.value = false
+  clearForm()
+}
+
+const clearForm = () => {
+  workoutTitle.value = ''
+  workoutLocation.value = ''
+  workoutDuration.value = ''
+  selectedExercise.value = ''
+  workoutDistance.value = ''
+  editingIndex.value = null
+}
+
+const editWorkout = (index: number) => {
+  const workout = workouts.value[index]
+  workoutTitle.value = workout.title
+  workoutLocation.value = workout.location
+  workoutDuration.value = workout.duration
+  selectedExercise.value = workout.exercise
+  workoutDistance.value = workout.distance
+  editingIndex.value = index
+  openModal()
+}
+
+const deleteWorkout = (index: number) => {
+  workouts.value.splice(index, 1)
+  saveWorkouts()
+}
+
+const saveWorkouts = () => {
+  localStorage.setItem('workouts', JSON.stringify(workouts.value))
 }
 
 const addWorkout = () => {
@@ -36,22 +68,38 @@ const addWorkout = () => {
     selectedExercise.value &&
     workoutDistance.value
   ) {
-    workouts.value.push({
-      title: workoutTitle.value,
-      location: workoutLocation.value,
-      duration: workoutDuration.value,
-      exercise: selectedExercise.value,
-      distance: workoutDistance.value
-    })
+    if (editingIndex.value !== null) {
+      // Update the existing workout
+      workouts.value[editingIndex.value] = {
+        title: workoutTitle.value,
+        location: workoutLocation.value,
+        duration: workoutDuration.value,
+        exercise: selectedExercise.value,
+        distance: workoutDistance.value
+      }
+    } else {
+      // Add a new workout
+      workouts.value.push({
+        title: workoutTitle.value,
+        location: workoutLocation.value,
+        duration: workoutDuration.value,
+        exercise: selectedExercise.value,
+        distance: workoutDistance.value
+      })
+    }
+    saveWorkouts()
     closeModal()
-    workoutTitle.value = ''
-    workoutLocation.value = ''
-    workoutDuration.value = ''
-    selectedExercise.value = ''
-    workoutDistance.value = ''
   }
 }
+
+onMounted(() => {
+  const savedWorkouts = localStorage.getItem('workouts')
+  if (savedWorkouts) {
+    workouts.value = JSON.parse(savedWorkouts)
+  }
+})
 </script>
+
 <template>
   <div>
     <div class="container mt-5 has-text-centered">
@@ -65,6 +113,8 @@ const addWorkout = () => {
         <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
         <p><strong>Exercise Type:</strong> {{ workout.exercise }}</p>
         <p v-if="workout.distance"><strong>Distance:</strong> {{ workout.distance }} miles</p>
+        <button class="button is-info" @click="editWorkout(index)">Edit</button>
+        <button class="button is-danger" @click="deleteWorkout(index)">Delete</button>
       </div>
     </div>
 
