@@ -10,7 +10,12 @@ import { registeredUsers } from '@/data/users'
 interface Friend {
   username: string
   email: string
-  logs: Workout[]
+
+  logs: {
+    title: string
+    duration: string
+    exercise: string
+  }[]
 }
 
 const loggedInUser = ref<User | null>(null)
