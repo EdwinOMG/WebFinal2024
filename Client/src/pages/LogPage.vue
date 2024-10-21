@@ -3,6 +3,7 @@ import ExerciseSearch from '@/components/ExerciseSearch.vue'
 </script>
 
 <template>
+  <header></header>
   <div>
     <ExerciseSearch />
   </div>

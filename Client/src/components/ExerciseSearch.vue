@@ -1,145 +1,177 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const search = ref('')
-const isPopupOpen = ref(false)
-const exercises = ref([
-  { name: 'Walking', logo: '🚶' },
-  { name: 'Running', logo: '🏃' },
-  { name: 'Cycling', logo: '🚴' }
-])
+const isModalOpen = ref(false)
+const workoutTitle = ref('')
+const workoutLocation = ref('')
+const workoutDuration = ref('')
+const selectedExercise = ref('')
+const workoutDistance = ref('')
 
-const searchExercises = () => {
-  console.log(`Searching for ${search.value}`)
+const exercises = ref(['Running', 'Walking', 'Cycling', 'Swimming'])
+
+interface Workout {
+  title: string
+  location: string
+  duration: string
+  exercise: string
+  distance: string
 }
 
-const openPopup = () => {
-  isPopupOpen.value = true
+const workouts = ref<Workout[]>([])
+
+const openModal = () => {
+  isModalOpen.value = true
 }
 
-const closePopup = () => {
-  isPopupOpen.value = false
+const closeModal = () => {
+  isModalOpen.value = false
 }
 
-const selectExercise = (exercise: { name: string }) => {
-  console.log(`selected ${exercise.name}`)
-  search.value = exercise.name
-
-  closePopup()
-}
-
-const clearSearch = () => {
-  search.value = ''
+const addWorkout = () => {
+  if (
+    workoutTitle.value &&
+    workoutLocation.value &&
+    workoutDuration.value &&
+    selectedExercise.value &&
+    workoutDistance.value
+  ) {
+    workouts.value.push({
+      title: workoutTitle.value,
+      location: workoutLocation.value,
+      duration: workoutDuration.value,
+      exercise: selectedExercise.value,
+      distance: workoutDistance.value
+    })
+    closeModal()
+    workoutTitle.value = ''
+    workoutLocation.value = ''
+    workoutDuration.value = ''
+    selectedExercise.value = ''
+    workoutDistance.value = ''
+  }
 }
 </script>
-
 <template>
   <div>
-    <div class="field">
-      <label class="label">Search for an exercise</label>
-      <div class="control has-icons-left has-icons-right">
-        <input
-          class="input"
-          type="text"
-          v-model="search"
-          placeholder="Click to search"
-          @focus="openPopup"
-          readonly
-        />
-        <span class="icon is-small is-left">
-          <i class="fas fa-search"></i>
-        </span>
-        <span class="icon is-right">
-          <button
-            v-if="search"
-            class="delete is-medium bulma-delete-mixin"
-            @click="clearSearch"
-          ></button>
-        </span>
+    <div class="container mt-5 has-text-centered">
+      <button class="button is-primary" @click="openModal">Add Workout</button>
+    </div>
+
+    <div class="workout-container">
+      <div v-for="(workout, index) in workouts" :key="index" class="box workout-box">
+        <h2 class="title is-4">{{ workout.title }}</h2>
+        <p><strong>Location:</strong> {{ workout.location }}</p>
+        <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
+        <p><strong>Exercise Type:</strong> {{ workout.exercise }}</p>
+        <p v-if="workout.distance"><strong>Distance:</strong> {{ workout.distance }} miles</p>
       </div>
     </div>
 
     <!-- Modal -->
-    <div v-if="isPopupOpen" class="modal is-active">
-      <div class="modal-background" @click="closePopup"></div>
+    <div v-if="isModalOpen" class="modal is-active">
+      <div class="modal-background" @click="closeModal"></div>
       <div class="modal-content">
         <div class="box">
+          <h2 class="title">Add New Workout</h2>
+
+          <!-- Workout Title -->
           <div class="field">
-            <label class="label">Search for an exercise</label>
-            <div class="control has-icons-left">
+            <label class="label">Workout Title</label>
+            <div class="control">
               <input
-                class="input is-medium"
+                class="input"
                 type="text"
-                v-model="search"
-                @input="searchExercises"
-                placeholder="Search for an exercise"
+                v-model="workoutTitle"
+                placeholder="Enter workout title"
               />
-              <span class="icon is-small is-left">
-                <i class="fas fa-search"></i>
-              </span>
             </div>
           </div>
 
-          <div class="exercise-list">
-            <ul>
-              <li
-                v-for="exercise in exercises"
-                :key="exercise.name"
-                class="exercise-item"
-                @click="selectExercise(exercise)"
-              >
-                <span class="exercise-logo">{{ exercise.logo }}</span>
-                <span class="exercise-name">{{ exercise.name }}</span>
-              </li>
-            </ul>
+          <!-- Location -->
+          <div class="field">
+            <label class="label">Location</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                v-model="workoutLocation"
+                placeholder="Enter workout location"
+              />
+            </div>
           </div>
+
+          <div class="field">
+            <label class="label">Workout Duration (minutes)</label>
+            <div class="control">
+              <input
+                class="input"
+                type="number"
+                v-model="workoutDuration"
+                placeholder="Enter workout duration"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Exercise Type</label>
+            <div class="control">
+              <div class="select">
+                <select v-model="selectedExercise">
+                  <option disabled value="">Select exercise type</option>
+                  <option v-for="exercise in exercises" :key="exercise">{{ exercise }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Workout Distance (miles)</label>
+            <div class="control">
+              <input
+                class="input"
+                type="number"
+                v-model="workoutDistance"
+                placeholder="Enter workout distance"
+              />
+            </div>
+          </div>
+
+          <button class="button is-success mt-3" @click="addWorkout">Add Workout</button>
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" @click="closePopup"></button>
+      <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>
     </div>
   </div>
 </template>
 
 <style scoped>
-.modal-background {
-  background-color: rgba(10, 10, 10, 0.4);
-}
-
-.modal-content {
-  max-width: 500px;
+.container {
+  max-width: 800px;
   margin: 0 auto;
 }
 
-.exercise-list {
-  margin-top: 20px;
-  background-color: #cbc3e3;
+.navbar {
+  padding: 1rem;
 }
 
-.icon-color {
-  color: white;
-}
-
-.exercise-item {
+.workout-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.exercise-name {
-  color: black;
-}
-.exercise-item:hover {
-  background-color: white;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
-.exercise-logo {
-  font-size: 1.5rem;
-  margin-right: 10px;
+.workout-box {
+  width: 80%;
+  max-width: 600px;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-.exercise-name {
-  font-size: 1.2rem;
+.modal-content {
+  width: 100%;
+  max-width: 600px;
 }
 </style>

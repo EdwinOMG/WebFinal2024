@@ -1,8 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="container is-fullheight">
-    <div class="columns is-fullheight">
+  <div class="container">
+    <div class="columns">
       <div class="column is-three-quarters">
         <div class="box profilebox">
           <h2 class="title">User Profile</h2>
