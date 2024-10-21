@@ -4,7 +4,7 @@ import NavBar from './components/NavBar.vue'
 </script>
 
 <template>
-  <div style="background-color: lightblue">
+  <div>
     <div>
       <header>
         <NavBar />

@@ -1,15 +1,42 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+import { registeredUsers } from '@/data/users'
+const username = ref('')
+const password = ref('')
+const isNotificationVisible = ref(false)
+
+const loginUser = () => {
+  const user = registeredUsers.value.find(
+    (user: { username: string; password: string }) =>
+      user.username === username.value && user.password === password.value
+  )
+
+  if (user) {
+    alert('Login successful!')
+    sessionStorage.setItem('loggedInUser', JSON.stringify(user))
+    router.push('/profileview')
+  } else {
+    alert('Invalid username or password!')
+  }
+
+  isNotificationVisible.value = true
+}
+</script>
 
 <template>
   <div class="login-container">
     <div class="login-box">
       <h1>Login</h1>
-      <form>
+      <form @submit.prevent="loginUser">
         <div class="textbox">
-          <input type="text" placeholder="Username" name="username" />
+          <input type="text" placeholder="Username" v-model="username" />
         </div>
         <div class="textbox">
-          <input type="password" placeholder="Password" name="password" />
+          <input type="password" placeholder="Password" v-model="password" />
         </div>
         <button class="btn" type="submit">Login</button>
       </form>
