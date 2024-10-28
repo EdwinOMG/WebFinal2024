@@ -3,12 +3,18 @@ import { defineComponent, ref } from 'vue'
 import WorkoutModal from '@/components/WorkoutModal.vue'
 import WorkoutList from '@/components/WorkoutList.vue'
 
+interface User {
+  username: string
+}
+const loggedInUser = ref<User | null>(null)
+
 export default defineComponent({
   components: {
     WorkoutModal,
     WorkoutList
   },
   setup() {
+    const userName = loggedInUser.value?.username || 'User'
     const isModalOpen = ref(false)
     const workouts = ref<any[]>([])
 
@@ -30,16 +36,65 @@ export default defineComponent({
       openModal,
       closeModal,
       handleAddWorkout,
-      workouts
+      workouts,
+      userName
     }
   }
 })
 </script>
 
 <template>
-  <div>
+  <div class="log-page">
+    <header class="log-header">
+      <div class="user-info">
+        <img class="user-icon" src="" alt="User Icon" />
+        <h1 class="username">{{ userName }}'s Exercise Log</h1>
+      </div>
+    </header>
+
     <WorkoutModal :isModalOpen="isModalOpen" @close="closeModal" @add-workout="handleAddWorkout" />
-    <WorkoutList :workouts="workouts" />
+
+    <div class="workout-container">
+      <WorkoutList :workouts="workouts" />
+    </div>
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+.log-page {
+  padding: 1rem;
+}
+
+.log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.username {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.workout-container {
+  max-height: 500px;
+  overflow-y: auto;
+  max-width: 400px;
+  border: 1px solid #dbdbdb;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+</style>
