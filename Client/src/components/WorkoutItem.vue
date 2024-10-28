@@ -39,5 +39,6 @@ export default {
   max-width: 600px;
   margin-bottom: 1.5rem;
   text-align: center;
+  border: 1px solid #dbdbdb;
 }
 </style>
