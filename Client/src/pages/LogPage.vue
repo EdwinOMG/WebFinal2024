@@ -38,7 +38,6 @@ export default defineComponent({
 
 <template>
   <div>
-    <button class="button is-primary" @click="openModal">Add Workout</button>
     <WorkoutModal :isModalOpen="isModalOpen" @close="closeModal" @add-workout="handleAddWorkout" />
     <WorkoutList :workouts="workouts" />
   </div>

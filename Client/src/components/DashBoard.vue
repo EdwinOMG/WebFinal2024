@@ -33,9 +33,9 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <div class="columns">
+    <div class="columns is-multiline">
       <div class="column is-three-quarters">
-        <div class="box profilebox">
+        <div class="box">
           <h2 class="title">Profile</h2>
           <div v-if="loggedInUser">
             <p><strong>Username: </strong> {{ loggedInUser.username }}</p>
@@ -45,16 +45,15 @@ onMounted(() => {
             <p>Please log in to view your profile.</p>
           </div>
         </div>
-        <div class="box logbox">
+        <div class="box">
           <h2 class="title">Stats</h2>
           <ul>
             <li><strong>Total Distance Done:</strong> {{ totalDistance }} miles</li>
           </ul>
-          <ul></ul>
         </div>
       </div>
-      <div class="column">
-        <div class="box friendscolumn">
+      <div class="column is-one-quarter">
+        <div class="box">
           <h2 class="title">Friends</h2>
           <h2 class="title">Share with Friends</h2>
           <input type="text" placeholder="Enter friend's email" class="input" />
@@ -65,22 +64,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
-.container.is-fullheight {
-  height: 80vh;
-  width: 80vw;
-}
-.profilebox {
-  margin-top: 30px;
-  margin-left: -50px;
-}
-.column .logbox {
-  margin-left: -50px;
-  height: 58vh;
-  margin-top: 0px;
-}
-.friendscolumn {
-  height: 84vh;
-  margin-top: 30px;
-}
-</style>
+<style scoped></style>
