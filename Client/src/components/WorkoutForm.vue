@@ -110,7 +110,4 @@ export default {
   </div>
 </template>
 
-<style scoped>
-.box {
-}
-</style>
+<style scoped></style>
