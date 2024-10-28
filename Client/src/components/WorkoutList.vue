@@ -1,19 +1,28 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import WorkoutItem from '@/components/WorkoutItem.vue'
-import Workout from '@/components/WorkoutItem.vue'
+
+interface Workout {
+  title: string
+  location: string
+  duration: number
+  exercise: string
+  distance?: number
+}
+
 export default defineComponent({
   components: {
     WorkoutItem
   },
   props: {
     workouts: {
-      type: Array as () => (typeof Workout)[],
+      type: Array as () => Workout[],
       required: true
     }
   }
 })
 </script>
+
 <template>
   <div>
     <WorkoutItem

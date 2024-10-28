@@ -1,4 +1,6 @@
 <script lang="ts">
+import { defineComponent } from 'vue'
+
 interface Workout {
   title: string
   location: string
@@ -6,18 +8,19 @@ interface Workout {
   exercise: string
   distance?: number
 }
-export default {
+
+export default defineComponent({
   props: {
     workout: {
       type: Object as () => Workout,
-      default: () => ({})
+      required: true
     },
     index: {
       type: Number,
       required: true
     }
   }
-}
+})
 </script>
 
 <template>
