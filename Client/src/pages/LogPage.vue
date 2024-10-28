@@ -1,11 +1,12 @@
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import WorkoutModal from '@/components/WorkoutModal.vue'
 import WorkoutList from '@/components/WorkoutList.vue'
 
 interface User {
   username: string
 }
+
 const loggedInUser = ref<User | null>(null)
 
 export default defineComponent({
@@ -14,9 +15,14 @@ export default defineComponent({
     WorkoutList
   },
   setup() {
-    const userName = loggedInUser.value?.username || 'User'
+    const userName = ref('Guest')
     const isModalOpen = ref(false)
     const workouts = ref<any[]>([])
+
+    onMounted(() => {
+      loggedInUser.value = { username: 'TestUser' }
+      userName.value = loggedInUser.value?.username || 'Guest'
+    })
 
     const openModal = () => {
       isModalOpen.value = true
@@ -59,6 +65,7 @@ export default defineComponent({
     </div>
   </div>
 </template>
+
 <style scoped>
 .log-page {
   padding: 1rem;
