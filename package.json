@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "bulma": "^1.0.2",
     "vuex": "^4.0.2"
   }
