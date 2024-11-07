@@ -59,7 +59,7 @@ export default defineComponent({
 
 <template>
   <div>
-    <button class="button is-primary" @click="openModal">Add Workout</button>
+    <button class="button is-primary is-light" @click="openModal">Add Workout</button>
     <WorkoutModal :isModalOpen="isModalOpen" @close="closeModal" @add-workout="handleAddWorkout" />
     <WorkoutItem
       v-for="(workout, index) in workouts"
@@ -70,4 +70,10 @@ export default defineComponent({
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.button {
+  display: block;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+</style>

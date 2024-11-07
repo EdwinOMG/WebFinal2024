@@ -38,10 +38,16 @@ export default defineComponent({
 
 <style scoped>
 .workout-box {
-  width: 80%;
-  max-width: 600px;
+  width: 100%;
   margin-bottom: 1.5rem;
   text-align: center;
-  border: 1px solid #dbdbdb;
+  border: 2px solid #c4bebe;
+  color: lightpink;
+  box-shadow: 0 0 10px #c4bebe;
+}
+
+p strong {
+  color: black;
+  font-style: italic;
 }
 </style>

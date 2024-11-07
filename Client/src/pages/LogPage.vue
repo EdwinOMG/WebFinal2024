@@ -95,9 +95,10 @@ export default defineComponent({
   max-height: 500px;
   overflow-y: auto;
   max-width: 400px;
-  border: 1px solid #dbdbdb;
+  border: 2px solid black;
   padding: 1rem;
   border-radius: 5px;
   margin-top: 1rem;
+  background-color: beige;
 }
 </style>
