@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-interface Workout {
+export interface Workout {
   title: string
   location: string
   duration: number

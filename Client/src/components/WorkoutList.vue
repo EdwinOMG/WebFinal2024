@@ -3,24 +3,15 @@ import { defineComponent, ref, onMounted, watch } from 'vue'
 import WorkoutItem from '@/components/WorkoutItem.vue'
 import WorkoutModal from '@/components/WorkoutModal.vue'
 
-interface Workout {
-  title: string
-  location: string
-  duration: number
-  exercise: string
-  distance?: number
-}
-
 export default defineComponent({
   components: {
-    WorkoutItem,
-    WorkoutModal
+    WorkoutModal,
+    WorkoutItem
   },
   setup() {
-    const workouts = ref<Workout[]>([])
     const isModalOpen = ref(false)
+    const workouts = ref<any[]>([])
     const totalDistance = ref(0)
-
     onMounted(() => {
       const savedWorkouts = localStorage.getItem('workouts')
       if (savedWorkouts) {
@@ -28,7 +19,6 @@ export default defineComponent({
       }
       calculateTotalDistance()
     })
-
     watch(
       workouts,
       (newWorkouts) => {
@@ -52,15 +42,13 @@ export default defineComponent({
       isModalOpen.value = false
     }
 
-    const handleAddWorkout = (newWorkout: Workout) => {
-      workouts.value.push(newWorkout)
-      calculateTotalDistance()
+    const handleAddWorkout = (workoutData: any) => {
+      workouts.value.push(workoutData)
       closeModal()
     }
-
     return {
-      workouts,
       isModalOpen,
+      workouts,
       openModal,
       closeModal,
       handleAddWorkout

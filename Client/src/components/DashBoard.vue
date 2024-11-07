@@ -45,7 +45,7 @@ onMounted(() => {
             <p>Please log in to view your profile.</p>
           </div>
         </div>
-        <div class="box">
+        <div class="box statsBox">
           <h2 class="title">Stats</h2>
           <ul>
             <li><strong>Total Distance Done:</strong> {{ totalDistance }} miles</li>
@@ -64,4 +64,17 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  padding: 10px;
+}
+
+.box {
+  color: lightpink;
+  background-color: white;
+  margin-bottom: 20px;
+}
+.input {
+  background-color: lightgray;
+}
+</style>

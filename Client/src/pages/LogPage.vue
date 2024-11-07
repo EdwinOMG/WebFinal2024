@@ -58,8 +58,6 @@ export default defineComponent({
       </div>
     </header>
 
-    <WorkoutModal :isModalOpen="isModalOpen" @close="closeModal" @add-workout="handleAddWorkout" />
-
     <div class="workout-container">
       <WorkoutList :workouts="workouts" />
     </div>
