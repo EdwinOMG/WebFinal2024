@@ -68,16 +68,14 @@ onMounted(() => {
 .box {
   padding: 10px;
   float: left;
-  margin: auto;
   border: 1px solid lightpink;
   background-color: white;
   margin-top: 10px;
+  margin-left: 40px;
   width: 50%;
+  height: 100%;
 }
 h2 {
   color: lightpink;
-}
-.friendsearch {
-  width: 40%;
 }
 </style>

@@ -64,13 +64,13 @@ h2 {
 }
 .box {
   padding: 10px;
-  float: left;
-  margin: auto;
+  float: right;
   border: 1px solid lightpink;
   background-color: white;
   margin-top: 10px;
   color: black;
-  width: 50%;
+  width: 30%;
+  margin-right: 40px;
 }
 .friendcolumn {
   margin-bottom: 2rem;
