@@ -41,12 +41,6 @@ const addFriend = (friend: User) => {
   friends.value.push(newFriend)
 }
 
-const selectedFriend = ref<Friend | null>(null)
-
-const viewFriendLogs = (friend: Friend) => {
-  selectedFriend.value = friend
-}
-
 onMounted(() => {
   const userData = sessionStorage.getItem('loggedInUser')
   if (userData) {
@@ -56,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="box friendscolumn">
+  <div class="box friendsearch">
     <h2 class="title">Friends</h2>
     <input type="text" v-model="searchQuery" placeholder="Search for friends" class="input" />
     <button class="button is-primary" @click="searchFriends">Search</button>
@@ -67,24 +61,23 @@ onMounted(() => {
         <button @click="addFriend(friend)" class="button is-small">Add Friend</button>
       </li>
     </ul>
-
-    <h2 class="title">Your Friends</h2>
-    <ul>
-      <li v-for="friend in friends" :key="friend.username">
-        {{ friend.username }}
-        <button @click="viewFriendLogs(friend)" class="button is-small">View Logs</button>
-      </li>
-    </ul>
-  </div>
-
-  <div v-if="selectedFriend" class="box friend-logs">
-    <h2>{{ selectedFriend.username }}'s Logs</h2>
-    <ul>
-      <li v-for="log in selectedFriend.logs" :key="log.title">
-        {{ log.title }} - {{ log.exercise }} for {{ log.duration }} minutes
-      </li>
-    </ul>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.box {
+  padding: 10px;
+  float: left;
+  margin: auto;
+  border: 1px solid lightpink;
+  background-color: white;
+  margin-top: 10px;
+  width: 50%;
+}
+h2 {
+  color: lightpink;
+}
+.friendsearch {
+  width: 40%;
+}
+</style>

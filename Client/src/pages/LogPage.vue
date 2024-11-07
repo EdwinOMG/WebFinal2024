@@ -77,6 +77,10 @@ export default defineComponent({
 .user-info {
   display: flex;
   align-items: center;
+  color: black;
+}
+h1 {
+  font-style: bold;
 }
 
 .user-icon {

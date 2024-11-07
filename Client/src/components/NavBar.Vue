@@ -36,7 +36,7 @@ const isOpen = ref(false)
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link"> More </a>
 
-          <div class="navbar-dropdown">
+          <div class="navbar-dropdown is-hoverable">
             <RouterLink to="/adminpage" class="navbar-item"> Admin </RouterLink>
             <RouterLink to="/" class="navbar-item"> Report an issue </RouterLink>
             <RouterLink to="/" class="navbar-item"> Contact </RouterLink>
@@ -64,7 +64,7 @@ const isOpen = ref(false)
 
 <style scoped>
 .navbar {
-  background-color: #cbc3e3;
+  background-color: white;
 }
 
 .navbar-burger {
