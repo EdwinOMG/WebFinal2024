@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
-import WorkoutModal from '@/components/WorkoutModal.vue'
 import WorkoutList from '@/components/WorkoutList.vue'
 
 interface User {
@@ -11,7 +10,6 @@ const loggedInUser = ref<User | null>(null)
 
 export default defineComponent({
   components: {
-    WorkoutModal,
     WorkoutList
   },
   setup() {
