@@ -5,6 +5,14 @@ const userController = require("./controllers/users");
 const PORT = 3000;
 
 // Middleware
+//Cors, write your own headers instead
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // accept any http method from any server
+  res.header("Access-Control-Allow-Methods", "*"); // Get, post, put, etc
+  res.header("Access-Control-Allow-Headers", "*"); //What kind of headers are allowed, (ALL)
+  next(); // has the next functions in the pipeline run
+});
+
 app.use(express.json());
 app.use(express.static(__dirname + "/dist"));
 
