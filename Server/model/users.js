@@ -15,6 +15,7 @@ const data = require("../data/users.json");
  * Get all users
  * @returns {Promise<DataListEnvelope<User>>}
  */
+
 async function getAll() {
   return {
     isSuccess: true,
