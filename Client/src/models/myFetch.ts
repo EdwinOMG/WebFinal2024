@@ -18,3 +18,21 @@ export function rest<T>(url: string, data?: any, method?: string): Promise<T> {
 export function api<T>(url: string, data?: any, method?: string): Promise<T> {
   return rest<T>(API_URL + url, data, method)
 }
+
+// for api
+// // creates a html script tag, calls loadscript and create a promise that will return the script when done loading.
+// //resolve and reject are parameters of the promise function to set it up
+// // if done loading call reslve, and append it( add it to last ) to the script
+// export async function loadScript(url: string): Promise<void> {
+//   return new Promise((resolve, reject) => {
+//     if (document.querySelector(`script[src="${url}"]`)) {
+//       resolve()
+//       return
+//     }
+//     const script = document.createElement('script')
+//     script.src = url
+//     script.onload = () => resolve()
+//     script.onerror = (err) => reject(err)
+//     document.head.appendChild(script)
+//   })
+// }

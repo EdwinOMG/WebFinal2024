@@ -10,6 +10,9 @@ const { createClient } = require("@supabase/supabase-js");
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 
+console.log("Supabase URL:", SUPABASE_URL);
+console.log("Supabase Secret Key:", !!SUPABASE_SECRET_KEY);
+
 // check if there is a url and key available, if not throw an error.
 if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
   throw new Error("Missing Supabase configuration in environment variables.");
