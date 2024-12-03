@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import LoginBadge from './LoginBadge.vue'
 const isOpen = ref(false)
 </script>
 
@@ -46,6 +47,7 @@ const isOpen = ref(false)
         <hr class="navbar-divider" />
 
         <div class="navbar-end">
+          <LoginBadge />
           <div class="navbar-item">
             <div class="buttons">
               <a class="button custom-button">
