@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "username": "john",
+      "title": "John's Workout",
+      "location": "Gym",
+      "duration": "60 minutes",
+      "exercise": "Running",
+      "distance": "5 miles"
+    },
+    {
+      "id": 2,
+      "username": "Edwin",
+      "title": "Edwin's Workout",
+      "location": "Home",
+      "duration": "30 minutes",
+      "exercise": "Jumping Jacks",
+      "distance": "1 miles"
+    }
+  ]
+}

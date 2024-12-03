@@ -26,11 +26,11 @@ async function getAll() {
 
 /**
  * Get a user by id
- * @param {number} id
+ * @param {string} username
  * @returns {Promise<DataEnvelope<User>>}
  */
-async function get(id) {
-  const item = data.items.find((user) => user.id == id);
+async function get(username) {
+  const item = data.items.find((user) => user.username == username);
   return {
     isSuccess: !!item,
     data: item,
@@ -43,7 +43,6 @@ async function get(id) {
  * @returns {Promise<DataEnvelope<User>>}
  */
 async function add(user) {
-  user.id = data.items.reduce((prev, x) => (x.id > prev ? x.id : prev), 0) + 1;
   data.items.push(user);
   return {
     isSuccess: true,
@@ -53,35 +52,33 @@ async function add(user) {
 
 /**
  * Update a user
- * @param {number} id
  * @param {User} user
  * @returns {Promise<DataEnvelope<User>>}
  */
-async function update(id, user) {
-  const userToUpdate = get(id);
-  Object.assign(userToUpdate, user);
+async function update(user) {
+  Object.assign(user);
   return {
     isSuccess: true,
-    data: userToUpdate,
+    data: user,
   };
 }
 
 /**
  * Remove a user
- * @param {number} id
+ * @param {string} username
  * @returns {Promise<DataEnvelope<number>>}
  */
-async function remove(id) {
-  const itemIndex = data.items.findIndex((user) => user.id == id);
+async function remove(username) {
+  const itemIndex = data.items.findIndex((user) => user.username == username);
   if (itemIndex === -1)
     throw {
       isSuccess: false,
       message: "Item not found",
-      data: id,
+      data: username,
       status: 404,
     };
   data.items.splice(itemIndex, 1);
-  return { isSuccess: true, message: "Item deleted", data: id };
+  return { isSuccess: true, message: "Item deleted", data: username };
 }
 
 module.exports = {
