@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-interface User {
-  username: string
-  email: string
-}
+
+import { useUserSession } from '@/composables/useUserSession'
+const { username, email, supabase } = useUserSession()
 
 interface Workout {
   title: string
@@ -13,21 +12,25 @@ interface Workout {
   distance: number
 }
 
-const loggedInUser = ref<User | null>(null)
 const workouts = ref<Workout[]>([])
 const totalDistance = ref(0)
 
-onMounted(() => {
-  const userData = sessionStorage.getItem('loggedInUser')
-  if (userData) {
-    loggedInUser.value = JSON.parse(userData)
+onMounted(async () => {
+  if (username.value) {
+    const { data, error } = await supabase
+      .from('Workouts')
+      .select('*')
+      .eq('username', username.value)
+    if (error) {
+      console.error('Error fetching workouts:', error)
+    } else {
+      workouts.value = data
+      totalDistance.value = workouts.value.reduce(
+        (sum, workout) => sum + (workout.distance || 0),
+        0
+      )
+    }
   }
-  const savedWorkouts = localStorage.getItem('workouts')
-  if (savedWorkouts) {
-    workouts.value = JSON.parse(savedWorkouts)
-  }
-
-  totalDistance.value = workouts.value.reduce((sum, workout) => sum + (workout.distance || 0), 0)
 })
 </script>
 
@@ -37,9 +40,9 @@ onMounted(() => {
       <div class="column is-three-quarters">
         <div class="box">
           <h2 class="title">Profile</h2>
-          <div v-if="loggedInUser">
-            <p><strong>Username: </strong> {{ loggedInUser.username }}</p>
-            <p><strong>Email:</strong> {{ loggedInUser.email }}</p>
+          <div v-if="username">
+            <p><strong>Username: </strong> {{ username }}</p>
+            <p><strong>Email:</strong> {{ email }}</p>
           </div>
           <div v-else>
             <p>Please log in to view your profile.</p>
