@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import router from '@/router'
+import { createClient } from '@supabase/supabase-js'
+console.log(import.meta.env.VITE_SUPABASE_URL)
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+)
 const username = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 
-const registerUser = () => {
+// need to add edge cases, such as checking if email is in use, or username in use, as well as if password is strong
+const registerUser = async () => {
   if (
     username.value === '' ||
     email.value === '' ||
@@ -16,21 +23,42 @@ const registerUser = () => {
     alert('Please fill out all fields!')
     return
   }
-  if (password.value === confirmPassword.value) {
-    const newUser = {
-      username: username.value,
-      password: password.value,
-      email: email.value,
-      role: 'user'
+  if (password.value !== confirmPassword.value) {
+    alert('Passwords do not match!')
+    return
+  }
+  try {
+    const { data: userExists } = await supabase
+      .from('Users')
+      .select('id')
+      .or(`email.eq.${email.value},username.eq.${username.value}`)
+
+    if (userExists?.length) {
+      alert('Email or username already in use. Please choose another.')
+      return
     }
+
+    const { error } = await supabase.from('Users').insert({
+      username: username.value,
+      email: email.value,
+      password: password.value, // possibly hash server-side
+      role: 'user'
+    })
+
+    if (error) {
+      throw error
+    }
+
+    alert('Account created successfully!')
+    // Reset fields
     username.value = ''
     email.value = ''
     password.value = ''
     confirmPassword.value = ''
-    alert('Account created successfully!')
     router.push('/loginpage')
-  } else {
-    alert('Passwords do not match!')
+  } catch (error) {
+    console.error('Error registering user:', error)
+    alert('Failed to create account. Please try again.')
   }
 }
 </script>
