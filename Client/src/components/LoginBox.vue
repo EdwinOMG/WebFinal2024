@@ -11,48 +11,42 @@ const router = useRouter()
 
 const username = ref('')
 const password = ref('')
-const isNotificationVisible = ref(false)
 
-const loginUser = () => {
-  if (
-    username.value === '' ||
-    password.value === ''
-  ) {
+const loginUser = async () => {
+  if (username.value === '' || password.value === '') {
     alert('Fill out all fields to login!')
     return
   }
+
   try {
-    const { data: userExists } = await supabase
+    // Query for the user by username
+    const { data: user, error } = await supabase
       .from('User')
-      .select('username')
-    if (userExists?.length) {
-
-      return
-    }
-
-    const { error } = await supabase.from('User').insert({
-      username: username.value,
-      email: email.value,
-      password: password.value, // possibly hash server-side
-      role: 'user'
-    })
+      .select('username, password') // Assuming you have a password column
+      .eq('username', username.value)
+      .single() // should be one result
 
     if (error) {
       throw error
     }
 
-    alert('Account created successfully!')
-    // Reset fields
-    username.value = ''
-    email.value = ''
-    password.value = ''
-    confirmPassword.value = ''
-    router.push('/loginpage')
+    if (!user) {
+      alert('User does not exist!')
+      return
+    }
+
+    // Validate password
+    if (user.password !== password.value) {
+      alert('Incorrect password!')
+      return
+    }
+
+    // Redirect to homepage upon successful login
+    router.push('/homepage')
   } catch (error) {
-    console.error('Error registering user:', error)
-    alert('Failed to create account. Please try again.')
+    console.error('Error logging in:', error)
+    alert('Failed to login. Please try again.')
   }
-}
 }
 </script>
 

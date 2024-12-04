@@ -1,6 +1,6 @@
 /** @type {{ items: User[] }} */
 const data = require("../data/users.json");
-
+const bcrypt = require("bcryptjs");
 /**
  * @template T
  * @typedef {import("../../Client/src/models/dataEnvelope").DataEnvelope} DataEnvelope
@@ -25,7 +25,7 @@ async function getAll() {
 }
 
 /**
- * Get a user by id
+ * Get a user by username
  * @param {string} username
  * @returns {Promise<DataEnvelope<User>>}
  */
@@ -43,10 +43,12 @@ async function get(username) {
  * @returns {Promise<DataEnvelope<User>>}
  */
 async function add(user) {
-  data.items.push(user);
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  const newUser = { ...user, password: hashedPassword };
+  data.items.push(newUser);
   return {
     isSuccess: true,
-    data: user,
+    data: newUser,
   };
 }
 
@@ -57,6 +59,10 @@ async function add(user) {
  * @returns {Promise<DataEnvelope<User>>}
  */
 async function update(user, updates) {
+  if (updates.password) {
+    // if password is updated, hash it
+    updates.password = await bcrypt.hash(updates.password, 10);
+  }
   Object.assign(user, updates);
   return {
     isSuccess: true,
