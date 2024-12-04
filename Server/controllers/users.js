@@ -1,5 +1,5 @@
-const model = require("../model/users");
-const express = require("express");
+import express from "express";
+import * as model from "../model/users.js";
 const app = express.Router();
 
 app

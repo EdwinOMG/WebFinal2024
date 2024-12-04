@@ -7,6 +7,7 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY
 )
+
 const username = ref('')
 const email = ref('')
 const password = ref('')
@@ -43,7 +44,7 @@ const registerUser = async () => {
     const { error } = await supabase.from('User').insert({
       username: username.value,
       email: email.value,
-      password: password.value, // possibly hash server-side
+      password: password.value, // hashed in backend
       role: 'user'
     })
 
