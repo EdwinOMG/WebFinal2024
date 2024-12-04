@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 const isOpen = ref(false)
-</script>
+const isLoggedIn = ref(false)
+const router = useRouter()
 
+// check if jwt token exists in local storage
+onMounted(() => {
+  isLoggedIn.value = !!localStorage.getItem('token')
+})
+
+const logout = () => {
+  localStorage.removeItem('token') // removes token
+  isLoggedIn.value = false // sets logged in to false
+  router.push('/loginpage') // pushes to login page(might not be necessary due to router)
+}
+</script>
 <template>
   <div>
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
@@ -48,12 +60,14 @@ const isOpen = ref(false)
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button custom-button">
+              <a v-if="!isLoggedIn" class="button custom-button">
                 <RouterLink to="/registerpage" class="navbar-item"> Sign Up </RouterLink>
               </a>
-              <a class="button custom-button">
+              <a v-if="!isLoggedIn" class="button custom-button">
                 <RouterLink to="/loginpage" class="navbar-item"> Login </RouterLink>
               </a>
+
+              <a v-if="isLoggedIn" @click="logout" class="button is-large">Logout</a>
             </div>
           </div>
         </div>
@@ -81,9 +95,14 @@ const isOpen = ref(false)
   background-color: pink;
   color: transparent;
   border: none;
-  padding: 0px 0px;
-  font-size: 1rem;
-  border-radius: 1px;
+  padding: 10px 20px;
+  font-size: 1.25rem;
+  border-radius: 5px;
   transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+button.custom-button {
+  font-size: 1rem; /* Makes sure the font size in the button element is controlled */
 }
 </style>

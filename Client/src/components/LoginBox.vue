@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { createClient } from '@supabase/supabase-js'
 const supabase = createClient(
@@ -29,9 +29,23 @@ const loginUser = async () => {
       throw error
     }
 
-    if (data) {
-      localStorage.setItem('', data.session.access_token)
-      router.push('/homepage')
+    try {
+      if (data) {
+        localStorage.setItem('token', data.session.access_token)
+
+        if (localStorage.getItem('token')) {
+          await router.push('/homepage')
+
+          nextTick(() => {
+            window.location.reload()
+          })
+        } else {
+          alert('Failed to store token. Please try again.')
+        }
+      }
+    } catch (error) {
+      console.error('Error logging in:', error)
+      alert('Failed to login. Please try again.')
     }
   } catch (error) {
     console.error('Error logging in:', error)
