@@ -9,40 +9,30 @@ const supabase = createClient(
 
 const router = useRouter()
 
-const username = ref('')
+const email = ref('')
 const password = ref('')
 
 const loginUser = async () => {
-  if (username.value === '' || password.value === '') {
+  if (email.value === '' || password.value === '') {
     alert('Fill out all fields to login!')
     return
   }
 
   try {
-    // Query for the user by username
-    const { data: user, error } = await supabase
-      .from('User')
-      .select('username, password') // Assuming you have a password column
-      .eq('username', username.value)
-      .single() // should be one result
+    // query for the user by username
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.value, // has to be email to align with supabase thing, switching it for better authentication
+      password: password.value
+    })
 
     if (error) {
       throw error
     }
 
-    if (!user) {
-      alert('User does not exist!')
-      return
+    if (data) {
+      localStorage.setItem('token', data.session.access_token)
+      router.push('/homepage')
     }
-
-    // Validate password
-    if (user.password !== password.value) {
-      alert('Incorrect password!')
-      return
-    }
-
-    // Redirect to homepage upon successful login
-    router.push('/homepage')
   } catch (error) {
     console.error('Error logging in:', error)
     alert('Failed to login. Please try again.')
@@ -56,7 +46,7 @@ const loginUser = async () => {
       <h1>Login</h1>
       <form @submit.prevent="loginUser">
         <div class="textbox">
-          <input type="text" placeholder="Username" v-model="username" />
+          <input type="text" placeholder="Email" v-model="email" />
         </div>
         <div class="textbox">
           <input type="password" placeholder="Password" v-model="password" />

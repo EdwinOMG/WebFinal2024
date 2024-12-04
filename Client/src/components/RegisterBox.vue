@@ -41,15 +41,24 @@ const registerUser = async () => {
       return
     }
 
-    const { error } = await supabase.from('User').insert({
-      username: username.value,
+    const { data, error } = await supabase.auth.signUp({
       email: email.value,
-      password: password.value, // hashed in backend
-      role: 'user'
+      password: password.value
     })
 
     if (error) {
       throw error
+    }
+
+    const { error: insertError } = await supabase.from('User').insert({
+      username: username.value,
+      email: email.value,
+      password: password.value, // should be hashed automatically
+      role: 'user'
+    })
+
+    if (insertError) {
+      throw insertError
     }
 
     alert('Account created successfully!')

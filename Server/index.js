@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
+const jwt = require("jsonwebtoken");
 const userController = require("./controllers/users");
 const workoutsController = require("./controllers/workouts");
 const PORT = 3000;
+
+const VITE_JWT_SECRET = process.env.VITE_JWT_SECRET;
 
 // Middleware
 //Cors, write your own headers instead
@@ -16,6 +19,22 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.static(__dirname + "/dist"));
 
+const authenticateJWT = (req, res, next) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  jwt.verify(token, VITE_JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).json({ message: "Failed to authenticate token" });
+    }
+
+    req.user = user;
+    next();
+  });
+};
 // Controllers
 app
   .get("/", (req, res, next) => {
