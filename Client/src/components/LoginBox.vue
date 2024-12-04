@@ -30,7 +30,7 @@ const loginUser = async () => {
     }
 
     if (data) {
-      localStorage.setItem('token', data.session.access_token)
+      localStorage.setItem('', data.session.access_token)
       router.push('/homepage')
     }
   } catch (error) {
