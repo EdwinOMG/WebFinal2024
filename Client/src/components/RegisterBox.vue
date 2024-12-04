@@ -13,6 +13,8 @@ const password = ref('')
 const confirmPassword = ref('')
 
 // need to add edge cases, such as checking if email is in use, or username in use, as well as if password is strong
+// MAKE SURE TO ADD POLICIES FOR TABLES, public for creating a user, while things like workout
+// logs should be authenticated
 const registerUser = async () => {
   if (
     username.value === '' ||
@@ -29,8 +31,8 @@ const registerUser = async () => {
   }
   try {
     const { data: userExists } = await supabase
-      .from('Users')
-      .select('id')
+      .from('User')
+      .select('username, email')
       .or(`email.eq.${email.value},username.eq.${username.value}`)
 
     if (userExists?.length) {
@@ -38,7 +40,7 @@ const registerUser = async () => {
       return
     }
 
-    const { error } = await supabase.from('Users').insert({
+    const { error } = await supabase.from('User').insert({
       username: username.value,
       email: email.value,
       password: password.value, // possibly hash server-side
