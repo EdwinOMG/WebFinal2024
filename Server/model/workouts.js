@@ -76,7 +76,7 @@ async function add(workout) {
  * @param {Workout} workout
  * @returns {Promise<DataEnvelope<Workout>>}
  */
-async function update(id, workout) {
+async function update(id, username, workout) {
   const workoutToUpdate = get(workout.id, workout.username);
   Object.assign(workoutToUpdate, workout);
   return {

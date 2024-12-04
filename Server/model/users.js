@@ -52,11 +52,12 @@ async function add(user) {
 
 /**
  * Update a user
- * @param {User} user
+ * @param {string} user // contains original user object
+ * @param {Partial<User>} updates // contains what property to update
  * @returns {Promise<DataEnvelope<User>>}
  */
-async function update(user) {
-  Object.assign(user);
+async function update(user, updates) {
+  Object.assign(user, updates);
   return {
     isSuccess: true,
     data: user,

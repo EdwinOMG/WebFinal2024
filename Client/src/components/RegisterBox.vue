@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { registeredUsers } from '@/data/users'
 import router from '@/router'
 const username = ref('')
 const email = ref('')
@@ -24,7 +23,6 @@ const registerUser = () => {
       email: email.value,
       role: 'user'
     }
-    registeredUsers.value.push(newUser)
     username.value = ''
     email.value = ''
     password.value = ''

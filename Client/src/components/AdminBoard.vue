@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { registeredUsers } from '@/data/users'
 import router from '@/router'
 
 interface User {
@@ -20,8 +19,6 @@ onMounted(() => {
   if (loggedInUser.value?.role !== 'admin') {
     alert('Access denied. You do not have admin privileges.')
     router.push('/')
-  } else {
-    allUsers.value = registeredUsers.value
   }
 })
 </script>

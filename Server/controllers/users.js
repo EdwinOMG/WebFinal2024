@@ -9,10 +9,10 @@ app
       .then((x) => res.send(x))
       .catch(next);
   })
-  .get("/:id", (req, res, next) => {
-    const id = req.params.id;
+  .get("/:username", (req, res, next) => {
+    const username = req.params.username; // Use username instead of id
     model
-      .get(+id)
+      .get(username) // Update model method to get by username
       .then((x) => res.send(x))
       .catch(next);
   })
@@ -22,17 +22,17 @@ app
       .then((x) => res.send(x))
       .catch(next);
   })
-  .patch("/:id", (req, res, next) => {
-    const id = req.params.id;
+  .patch("/:username", (req, res, next) => {
+    const username = req.params.username; // Use username instead of id
     model
-      .update(+id, req.body)
+      .update(username, req.body) // Update model method to update by username
       .then((x) => res.send(x))
       .catch(next);
   })
-  .delete("/:id", (req, res, next) => {
-    const id = req.params.id;
+  .delete("/:username", (req, res, next) => {
+    const username = req.params.username; // Use username instead of id
     model
-      .remove(+id)
+      .remove(username) // Update model method to remove by username
       .then((x) => res.send(x))
       .catch(next);
   });

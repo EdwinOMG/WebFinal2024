@@ -9,10 +9,10 @@ app
       .then((x) => res.send(x))
       .catch(next);
   })
-  .get("/:id", (req, res, next) => {
+  .get("/:username/:id", (req, res, next) => {
     const id = req.params.id;
     model
-      .get(+id)
+      .get(+id, req.params.username)
       .then((x) => res.send(x))
       .catch(next);
   })
@@ -22,17 +22,18 @@ app
       .then((x) => res.send(x))
       .catch(next);
   })
-  .patch("/:id", (req, res, next) => {
-    const id = req.params.id;
+  .patch("/:username/:id", (req, res, next) => {
+    const { username, id } = req.params;
+    const workout = req.body;
     model
-      .update(+id, req.body)
+      .update(+id, username, workout)
       .then((x) => res.send(x))
       .catch(next);
   })
-  .delete("/:id", (req, res, next) => {
-    const id = req.params.id;
+  .delete("/:username/:id", (req, res, next) => {
+    const { username, id } = req.params;
     model
-      .remove(+id)
+      .remove(+id, username)
       .then((x) => res.send(x))
       .catch(next);
   });

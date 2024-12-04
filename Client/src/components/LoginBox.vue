@@ -4,34 +4,33 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-import { registeredUsers } from '@/data/users'
 const username = ref('')
 const password = ref('')
 const isNotificationVisible = ref(false)
 
-const loginUser = () => {
-  const user = registeredUsers.value.find(
-    (user: { username: string; password: string }) =>
-      user.username === username.value && user.password === password.value
-  )
+// const loginUser = () => {
+//   const user = registeredUsers.value.find(
+//     (user: { username: string; password: string }) =>
+//       user.username === username.value && user.password === password.value
+//   )
 
-  if (user) {
-    alert('Login successful!')
-    sessionStorage.setItem('loggedInUser', JSON.stringify(user))
-    router.push('/profileview')
-  } else {
-    alert('Invalid username or password!')
-  }
+//   if (user) {
+//     alert('Login successful!')
+//     sessionStorage.setItem('loggedInUser', JSON.stringify(user))
+//     router.push('/profileview')
+//   } else {
+//     alert('Invalid username or password!')
+//   }
 
-  isNotificationVisible.value = true
-}
+//   isNotificationVisible.value = true
+// }
 </script>
 
 <template>
   <div class="login-container">
     <div class="login-box">
       <h1>Login</h1>
-      <form @submit.prevent="loginUser">
+      <!-- <form @submit.prevent="loginUser">
         <div class="textbox">
           <input type="text" placeholder="Username" v-model="username" />
         </div>
@@ -39,7 +38,7 @@ const loginUser = () => {
           <input type="password" placeholder="Password" v-model="password" />
         </div>
         <button class="btn" type="submit">Login</button>
-      </form>
+      </form> -->
       <div class="signup-link">
         <RouterLink to="/registerpage" class="is-link"> Sign up here! </RouterLink>
       </div>

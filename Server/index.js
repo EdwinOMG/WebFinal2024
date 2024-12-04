@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const userController = require("./controllers/users");
-
+const workoutsController = require("./controllers/workouts");
 const PORT = 3000;
 
 // Middleware
@@ -25,6 +25,7 @@ app
     res.send("About Us");
   })
   .use("/api/v1/users", userController)
+  .use("/api/v1/workouts", workoutsController)
   /* add other controllers here */
   .get("*", (req, res, next) => {
     res.sendFile(__dirname + "/dist/index.html");

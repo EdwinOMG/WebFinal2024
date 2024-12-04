@@ -5,7 +5,6 @@ interface User {
   username: string
   email: string
 }
-import { registeredUsers } from '@/data/users'
 
 interface Friend {
   username: string
@@ -23,12 +22,13 @@ const friends = ref<Friend[]>([])
 const searchQuery = ref('')
 const searchResults = ref<User[]>([])
 
-const searchFriends = () => {
-  searchResults.value = registeredUsers.value.filter(
-    (user: User) =>
-      user.username.includes(searchQuery.value) && user.username !== loggedInUser.value?.username
-  )
-}
+// MAKE TIS DATABASE
+// const searchFriends = () => {
+//   searchResults.value = users.filter(
+//     (user: User) =>
+//       user.username.includes(searchQuery.value) && user.username !== loggedInUser.value?.username
+//   )
+// }
 
 const addFriend = (friend: User) => {
   const newFriend: Friend = {
@@ -53,7 +53,7 @@ onMounted(() => {
   <div class="box friendsearch">
     <h2 class="title">Friends</h2>
     <input type="text" v-model="searchQuery" placeholder="Search for friends" class="input" />
-    <button class="button is-primary" @click="searchFriends">Search</button>
+    <!--<button class="button is-primary" @click="searchFriends">Search</button> -->
 
     <ul v-if="searchResults.length">
       <li v-for="friend in searchResults" :key="friend.username">
