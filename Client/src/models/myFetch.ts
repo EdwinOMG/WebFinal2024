@@ -90,7 +90,7 @@ export function useWorkouts(username: string) {
   console.log(workouts.value)
 
   const addWorkout = async (workout: Workout) => {
-    const { data, error } = await supabase.from('Workouts').insert(workout)
+    const { data, error } = await supabase.from('Workouts').insert([workout])
 
     if (error) {
       console.error('Error inserting workout:', error)

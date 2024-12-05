@@ -12,6 +12,7 @@ export default {
       required: true
     }
   },
+  emits: ['closeModal'],
   setup(props, { emit }) {
     const { username } = useUserSession()
     const { addWorkout } = useWorkouts(username.value)
@@ -22,6 +23,8 @@ export default {
     const localSelectedExercise = ref(props.workout.exercise || '')
     const localWorkoutDistance = ref(props.workout.distance || 0)
 
+    const isValidForm = ref(true)
+
     const submitForm = () => {
       console.log(
         username.value,
@@ -31,6 +34,16 @@ export default {
         localSelectedExercise.value,
         localWorkoutDistance.value
       )
+      if (
+        !localWorkoutTitle.value ||
+        !localWorkoutLocation.value ||
+        localWorkoutDuration.value <= 0 ||
+        !localSelectedExercise.value ||
+        localWorkoutDistance.value <= 0
+      ) {
+        isValidForm.value = false
+        return
+      }
       const workoutData = {
         username: username.value,
         title: localWorkoutTitle.value,
@@ -47,15 +60,21 @@ export default {
         console.error('Error adding workout:', error)
       }
     }
+    const closeForm = () => {
+      //close form without submitting
+      emit('closeModal')
+    }
 
     return {
       submitForm,
+      closeForm,
       exercises,
       localWorkoutTitle,
       localWorkoutLocation,
       localWorkoutDuration,
       localSelectedExercise,
-      localWorkoutDistance
+      localWorkoutDistance,
+      isValidForm
     }
   }
 }
@@ -63,6 +82,9 @@ export default {
 
 <template>
   <h2 class="title">Add New Workout</h2>
+  <div v-if="!isValidForm" class="notification is-danger">
+    Please fill out all fields correctly.
+  </div>
   <label class="label">Workout Title</label>
   <input class="input" type="text" v-model="localWorkoutTitle" placeholder="Enter workout title" />
 
