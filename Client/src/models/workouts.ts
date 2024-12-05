@@ -3,7 +3,7 @@ export class Workout {
   title = ''
   username = ''
   location = ''
-  duration = ''
+  duration = 0
   exercise = ''
-  distance = ''
+  distance = 0
 }

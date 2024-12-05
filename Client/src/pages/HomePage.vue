@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUserSession } from '@/composables/useUserSession'
+import { useUserSession } from '@/models/myFetch'
 const { username } = useUserSession()
 </script>
 

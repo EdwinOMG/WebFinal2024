@@ -1,4 +1,11 @@
 const API_URL = 'http://localhost:3000/api/v1/'
+import { ref, onMounted } from 'vue'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+)
 
 export function rest<T>(url: string, data?: any, method?: string): Promise<T> {
   return fetch(url, {
@@ -17,6 +24,88 @@ export function rest<T>(url: string, data?: any, method?: string): Promise<T> {
 
 export function api<T>(url: string, data?: any, method?: string): Promise<T> {
   return rest<T>(API_URL + url, data, method)
+}
+
+export function useUserSession() {
+  const username = ref<string>('')
+  const email = ref<string | null>(null)
+  const supabaseClient = supabase
+
+  onMounted(async () => {
+    const {
+      data: { session }
+    } = await supabase.auth.getSession()
+
+    if (session) {
+      const { data, error } = await supabase
+        .from('User')
+        .select('username, email')
+        .eq('email', session.user?.email)
+        .single()
+
+      if (error) {
+        console.error('Error fetching user data:', error)
+      } else {
+        username.value = data?.username
+        email.value = data?.email
+      }
+    }
+  })
+
+  return {
+    username,
+    email,
+    supabase: supabaseClient
+  }
+}
+
+export interface Workout {
+  title: string
+  location: string
+  duration: number
+  exercise: string
+  distance: number
+}
+
+export function useWorkouts(username: string) {
+  const workouts = ref<Workout[]>([])
+  const totalDistance = ref(0)
+
+  const fetchWorkouts = async () => {
+    if (username) {
+      const { data, error } = await supabase.from('Workouts').select('*').eq('username', username)
+      if (error) {
+        console.error('Error fetching workouts:', error)
+      } else {
+        workouts.value = data
+        totalDistance.value = workouts.value.reduce(
+          (sum, workout) => sum + (workout.distance || 0),
+          0
+        )
+      }
+    }
+  }
+
+  const addWorkout = async (workout: Workout) => {
+    const { data, error } = await supabase.from('Workouts').insert(workout)
+
+    if (error) {
+      console.error('Error inserting workout:', error)
+    } else {
+      workouts.value.push(...(data || []))
+      totalDistance.value = workouts.value.reduce(
+        (sum, workout) => sum + (workout.distance || 0),
+        0
+      )
+    }
+  }
+
+  return {
+    workouts,
+    totalDistance,
+    fetchWorkouts,
+    addWorkout
+  }
 }
 
 // for api

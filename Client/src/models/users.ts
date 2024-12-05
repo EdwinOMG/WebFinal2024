@@ -2,6 +2,7 @@ export class User {
   username = ''
   email = ''
   password = ''
+  role = ''
 }
 
 // for api

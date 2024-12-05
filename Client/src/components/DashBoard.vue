@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-import { useUserSession } from '@/composables/useUserSession'
+import { useUserSession } from '@/models/myFetch'
 const { username, email, supabase } = useUserSession()
 
 interface Workout {
