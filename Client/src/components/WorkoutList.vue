@@ -16,7 +16,7 @@ export default defineComponent({
     const isModalOpen = ref(false)
 
     onMounted(() => {
-      if (username) {
+      if (username.value) {
         fetchWorkouts()
       }
     })
@@ -29,8 +29,9 @@ export default defineComponent({
       isModalOpen.value = false
     }
 
-    const handleAddWorkout = (workoutData: any) => {
-      addWorkout(workoutData)
+    const handleAddWorkout = async (workoutData: any) => {
+      await addWorkout(workoutData)
+      await fetchWorkouts
       closeModal()
     }
 
@@ -50,13 +51,12 @@ export default defineComponent({
   <div>
     <button class="button is-primary is-light" @click="openModal">Add Workout</button>
     <WorkoutModal :isModalOpen="isModalOpen" @close="closeModal" @add-workout="handleAddWorkout" />
-
     <div v-if="workouts.length > 0">
       <WorkoutItem
         v-for="(workout, index) in workouts"
         :key="index"
-        :workout="workout"
-        :index="index"
+        :workoutItem="workout"
+        :indexed="index"
       />
     </div>
     <div v-else>

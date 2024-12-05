@@ -60,6 +60,7 @@ export function useUserSession() {
 }
 
 export interface Workout {
+  username: string
   title: string
   location: string
   duration: number
@@ -76,15 +77,17 @@ export function useWorkouts(username: string) {
       const { data, error } = await supabase.from('Workouts').select('*').eq('username', username)
       if (error) {
         console.error('Error fetching workouts:', error)
-      } else {
-        workouts.value = data
-        totalDistance.value = workouts.value.reduce(
-          (sum, workout) => sum + (workout.distance || 0),
-          0
-        )
+        return
       }
+      console.log('supabase data:', data)
+      workouts.value = data || []
+      totalDistance.value = workouts.value.reduce(
+        (sum, workout) => sum + (workout.distance || 0),
+        0
+      )
     }
   }
+  console.log(workouts.value)
 
   const addWorkout = async (workout: Workout) => {
     const { data, error } = await supabase.from('Workouts').insert(workout)

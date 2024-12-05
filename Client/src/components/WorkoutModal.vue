@@ -1,6 +1,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import WorkoutForm from '@/components/WorkoutForm.vue'
+import { useUserSession } from '@/models/myFetch'
+const { username } = useUserSession()
 
 export default defineComponent({
   props: {
@@ -32,6 +34,11 @@ export default defineComponent({
   components: {
     WorkoutForm
   },
+  data() {
+    return {
+      username
+    }
+  },
   methods: {
     openModal() {
       this.$emit('open')
@@ -50,6 +57,7 @@ export default defineComponent({
       <WorkoutForm
         v-if="isModalOpen"
         :workout="{
+          username: username,
           title: workoutTitle,
           location: workoutLocation,
           duration: workoutDuration,

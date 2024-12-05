@@ -15,6 +15,7 @@ export default defineComponent({
 
     const { workouts, totalDistance, fetchWorkouts, addWorkout } = useWorkouts(username.value)
     const newWorkout = ref<Workout>({
+      username: username.value,
       title: '',
       location: '',
       duration: 0,
@@ -37,6 +38,7 @@ export default defineComponent({
       try {
         await addWorkout(newWorkout.value)
         newWorkout.value = {
+          username: username.value,
           title: '',
           location: '',
           duration: 0,

@@ -4,13 +4,19 @@ import type { Workout } from '@/models/myFetch'
 
 export default defineComponent({
   props: {
-    workout: {
+    workoutItem: {
       type: Object as () => Workout,
       required: true
     },
-    index: {
+    indexed: {
       type: Number,
       required: true
+    }
+  },
+  setup(props) {
+    return {
+      workout: props.workoutItem,
+      index: props.indexed
     }
   }
 })
