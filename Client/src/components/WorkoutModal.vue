@@ -33,6 +33,9 @@ export default defineComponent({
     WorkoutForm
   },
   methods: {
+    openModal() {
+      this.$emit('open')
+    },
     closeModal() {
       this.$emit('close')
     }
@@ -45,6 +48,7 @@ export default defineComponent({
     <div class="modal-background" @click="closeModal"></div>
     <div class="modal-content">
       <WorkoutForm
+        v-if="isModalOpen"
         :workout="{
           title: workoutTitle,
           location: workoutLocation,
@@ -52,6 +56,7 @@ export default defineComponent({
           exercise: selectedExercise,
           distance: workoutDistance
         }"
+        @closeModal="closeModal"
       />
     </div>
     <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>

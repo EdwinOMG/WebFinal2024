@@ -12,7 +12,7 @@ export default {
       required: true
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const { username } = useUserSession()
     const { addWorkout } = useWorkouts(username.value)
 
@@ -21,6 +21,7 @@ export default {
     const localWorkoutDuration = ref(props.workout.duration || 0)
     const localSelectedExercise = ref(props.workout.exercise || '')
     const localWorkoutDistance = ref(props.workout.distance || 0)
+
     const submitForm = () => {
       console.log(
         username.value,
@@ -41,6 +42,7 @@ export default {
 
       try {
         addWorkout(workoutData)
+        emit('closeModal')
       } catch (error) {
         console.error('Error adding workout:', error)
       }
