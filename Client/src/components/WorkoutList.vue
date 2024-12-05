@@ -1,38 +1,25 @@
 <script lang="ts">
-import { defineComponent, ref, onMounted, watch } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
+import { useUserSession, useWorkouts } from '@/models/myFetch'
 import WorkoutItem from '@/components/WorkoutItem.vue'
 import WorkoutModal from '@/components/WorkoutModal.vue'
 
+const { username } = useUserSession()
 export default defineComponent({
   components: {
     WorkoutModal,
     WorkoutItem
   },
   setup() {
-    const isModalOpen = ref(false)
-    const workouts = ref<any[]>([])
-    const totalDistance = ref(0)
-    onMounted(() => {
-      const savedWorkouts = localStorage.getItem('workouts')
-      if (savedWorkouts) {
-        workouts.value = JSON.parse(savedWorkouts)
-      }
-      calculateTotalDistance()
-    })
-    watch(
-      workouts,
-      (newWorkouts) => {
-        localStorage.setItem('workouts', JSON.stringify(newWorkouts))
-      },
-      { deep: true }
-    )
+    const { workouts, totalDistance, fetchWorkouts, addWorkout } = useWorkouts(username.value)
 
-    const calculateTotalDistance = () => {
-      totalDistance.value = workouts.value.reduce(
-        (sum, workout) => sum + (workout.distance || 0),
-        0
-      )
-    }
+    const isModalOpen = ref(false)
+
+    onMounted(() => {
+      if (username) {
+        fetchWorkouts()
+      }
+    })
 
     const openModal = () => {
       isModalOpen.value = true
@@ -43,12 +30,14 @@ export default defineComponent({
     }
 
     const handleAddWorkout = (workoutData: any) => {
-      workouts.value.push(workoutData)
+      addWorkout(workoutData)
       closeModal()
     }
+
     return {
       isModalOpen,
       workouts,
+      totalDistance,
       openModal,
       closeModal,
       handleAddWorkout
@@ -61,12 +50,22 @@ export default defineComponent({
   <div>
     <button class="button is-primary is-light" @click="openModal">Add Workout</button>
     <WorkoutModal :isModalOpen="isModalOpen" @close="closeModal" @add-workout="handleAddWorkout" />
-    <WorkoutItem
-      v-for="(workout, index) in workouts"
-      :key="index"
-      :workout="workout"
-      :index="index"
-    />
+
+    <div v-if="workouts.length > 0">
+      <WorkoutItem
+        v-for="(workout, index) in workouts"
+        :key="index"
+        :workout="workout"
+        :index="index"
+      />
+    </div>
+    <div v-else>
+      <p>No workouts found.</p>
+    </div>
+
+    <div v-if="totalDistance > 0">
+      <p>Total Distance: {{ totalDistance }} km</p>
+    </div>
   </div>
 </template>
 

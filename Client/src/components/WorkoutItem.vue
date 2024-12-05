@@ -1,13 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-
-export interface Workout {
-  title: string
-  location: string
-  duration: number
-  exercise: string
-  distance?: number
-}
+import type { Workout } from '@/models/myFetch'
 
 export default defineComponent({
   props: {

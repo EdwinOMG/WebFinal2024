@@ -1,25 +1,28 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import WorkoutList from '@/components/WorkoutList.vue'
-
-interface User {
-  username: string
-}
-
-const loggedInUser = ref<User | null>(null)
+import { useWorkouts, useUserSession } from '@/models/myFetch' // Import the Workout type
+import type { Workout } from '@/models/myFetch'
 
 export default defineComponent({
   components: {
     WorkoutList
   },
   setup() {
-    const userName = ref('Guest')
-    const isModalOpen = ref(false)
-    const workouts = ref<any[]>([])
+    const { username } = useUserSession()
 
+    const isModalOpen = ref(false)
+
+    const { workouts, totalDistance, fetchWorkouts, addWorkout } = useWorkouts(username.value)
+    const newWorkout = ref<Workout>({
+      title: '',
+      location: '',
+      duration: 0,
+      exercise: '',
+      distance: 0
+    })
     onMounted(() => {
-      loggedInUser.value = { username: 'TestUser' }
-      userName.value = loggedInUser.value?.username || 'Guest'
+      fetchWorkouts()
     })
 
     const openModal = () => {
@@ -30,9 +33,19 @@ export default defineComponent({
       isModalOpen.value = false
     }
 
-    const handleAddWorkout = (workoutData: any) => {
-      workouts.value.push(workoutData)
-      closeModal()
+    const handleAddWorkout = async () => {
+      try {
+        await addWorkout(newWorkout.value)
+        newWorkout.value = {
+          title: '',
+          location: '',
+          duration: 0,
+          exercise: '',
+          distance: 0
+        }
+      } catch (error) {
+        console.error('Error adding workout:', error)
+      }
     }
 
     return {
@@ -41,7 +54,9 @@ export default defineComponent({
       closeModal,
       handleAddWorkout,
       workouts,
-      userName
+      totalDistance,
+      username,
+      newWorkout
     }
   }
 })
@@ -52,7 +67,7 @@ export default defineComponent({
     <header class="log-header">
       <div class="user-info">
         <img class="user-icon" src="" alt="User Icon" />
-        <h1 class="username">{{ userName }}'s Exercise Log</h1>
+        <h1 class="username">{{ username }}'s Exercise Log</h1>
       </div>
     </header>
 

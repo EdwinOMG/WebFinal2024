@@ -17,16 +17,16 @@ export default defineComponent({
       default: ''
     },
     workoutDuration: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     },
     selectedExercise: {
       type: String,
       default: ''
     },
     workoutDistance: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     }
   },
   components: {
@@ -35,10 +35,6 @@ export default defineComponent({
   methods: {
     closeModal() {
       this.$emit('close')
-    },
-    addWorkout(workoutData: any) {
-      this.$emit('add-workout', workoutData)
-      this.closeModal()
     }
   }
 })
@@ -49,12 +45,13 @@ export default defineComponent({
     <div class="modal-background" @click="closeModal"></div>
     <div class="modal-content">
       <WorkoutForm
-        :workoutTitle="workoutTitle"
-        :workoutLocation="workoutLocation"
-        :workoutDuration="workoutDuration"
-        :selectedExercise="selectedExercise"
-        :workoutDistance="workoutDistance"
-        @submit="addWorkout"
+        :workout="{
+          title: workoutTitle,
+          location: workoutLocation,
+          duration: workoutDuration,
+          exercise: selectedExercise,
+          distance: workoutDistance
+        }"
       />
     </div>
     <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>

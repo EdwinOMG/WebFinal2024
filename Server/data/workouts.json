@@ -5,18 +5,18 @@
       "username": "john",
       "title": "John's Workout",
       "location": "Gym",
-      "duration": "60 minutes",
+      "duration": 60,
       "exercise": "Running",
-      "distance": "5 miles"
+      "distance": 5
     },
     {
       "id": 2,
       "username": "Edwin",
       "title": "Edwin's Workout",
       "location": "Home",
-      "duration": "30 minutes",
+      "duration": 30,
       "exercise": "Jumping Jacks",
-      "distance": "1 miles"
+      "distance": 1
     }
   ]
 }
