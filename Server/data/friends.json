@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "user_username": "john",
+      "friend_username": "jane",
+      "friend_request": false
+    },
+    {
+      "id": 2,
+      "user_username": "jane",
+      "friend_username": "john",
+      "friend_request": true
+    },
+    {
+      "id": 3,
+      "user_username": "john",
+      "friend_username": "mike",
+      "friend_request": false
+    },
+    {
+      "id": 4,
+      "user_username": "mike",
+      "friend_username": "john",
+      "friend_request": false
+    }
+  ]
+}
