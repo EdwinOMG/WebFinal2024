@@ -228,17 +228,24 @@ export function useFriends(username: string) {
     confirmedFriends.value = data || []
   }
 
-  const fetchPendingFriendRequests = async () => {
-    const { data, error } = await supabase
-      .from('Friends')
-      .select('*')
-      .eq('user_username', username)
-      .eq('friend_request', false)
-    if (error) {
-      console.error('Error fetching pending friend requests:', error)
-      return
+  const fetchPendingFriendRequests = async (): Promise<Friend[]> => {
+    try {
+      const { data, error } = await supabase
+        .from('Friends')
+        .select('*')
+        .eq('user_username', username)
+        .eq('friend_request', false)
+
+      if (error) {
+        console.error('Error fetching pending friend requests:', error)
+        return []
+      }
+
+      return (data as Friend[]) || []
+    } catch (error) {
+      console.error('Unexpected error fetching pending friend requests:', error)
+      return []
     }
-    pendingFriendRequests.value = data || []
   }
 
   return {
