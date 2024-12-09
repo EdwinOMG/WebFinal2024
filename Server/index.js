@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.use(express.static(__dirname + "/dist"));
+app.use(express.static(__dirname + "../Client/dist"));
 
 const authenticateJWT = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
@@ -47,7 +47,7 @@ app
   .use("/api/v1/workouts", workoutsController)
   /* add other controllers here */
   .get("*", (req, res, next) => {
-    res.sendFile(__dirname + "/dist/index.html");
+    res.sendFile(__dirname + "../Client/dist/index.html");
   });
 
 app.use((err, req, res, next) => {
