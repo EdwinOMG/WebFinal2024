@@ -6,7 +6,7 @@
     "start": "node Server/index.js",
     "dev:server": "nodemon Server/index.js --watch Server",
     "dev:client": "pnpm --prefix Client dev",
-    "dev": "pnpm dev:server & pnpm dev:client"
+    "dev": "pnpm run dev:server & pnpm run dev:client"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.46.1",
