@@ -40,7 +40,7 @@ jobs:
 
       - name: build vue
         run: |
-          cd ./Client
+          cd Client
           pnpm install
           pnpm run build
 
@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: ".Client/dist"
+          path: "./Client/dist"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
