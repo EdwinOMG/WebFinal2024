@@ -33,11 +33,10 @@ export default defineComponent({
   components: {
     WorkoutForm
   },
-  emits: ['open', 'close'],
+  emits: ['update:isModalOpen'],
   setup() {
     const { username } = useUserSession()
 
-    // Use a computed property for username
     const user = computed(() => username.value)
 
     return {
@@ -45,11 +44,8 @@ export default defineComponent({
     }
   },
   methods: {
-    openModal() {
-      this.$emit('open')
-    },
     closeModal() {
-      this.$emit('close')
+      this.$emit('update:isModalOpen', false)
     }
   }
 })
@@ -60,7 +56,6 @@ export default defineComponent({
     <div class="modal-background" @click="closeModal"></div>
     <div class="modal-content">
       <WorkoutForm
-        v-if="isModalOpen"
         :workout="{
           username: user,
           title: workoutTitle,
@@ -81,5 +76,19 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 </style>

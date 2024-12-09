@@ -107,6 +107,7 @@ export function useWorkouts(username: string) {
 
   const fetchWorkouts = async () => {
     if (username) {
+      console.log('Fetching workouts for:', username)
       const { data, error } = await supabase.from('Workouts').select('*').eq('username', username)
       if (error) {
         console.error('Error fetching workouts:', error)
@@ -117,11 +118,13 @@ export function useWorkouts(username: string) {
         (sum, workout) => sum + (workout.distance || 0),
         0
       )
+      console.log('Fetched workouts:', workouts.value)
     }
   }
-  console.log(workouts.value)
 
+  // Add new workout to the list
   const addWorkout = async (workout: Workout) => {
+    console.log('Adding workout:', workout)
     const { data, error } = await supabase.from('Workouts').insert([workout])
     if (error) {
       console.error('Error inserting workout:', error)
@@ -131,7 +134,12 @@ export function useWorkouts(username: string) {
         (sum, workout) => sum + (workout.distance || 0),
         0
       )
+      console.log('Workout added:', workouts.value)
     }
+  }
+
+  if (username) {
+    fetchWorkouts()
   }
 
   return {

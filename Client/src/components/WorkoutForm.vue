@@ -12,7 +12,7 @@ export default {
       required: true
     }
   },
-  emits: ['closeModal'],
+  emits: ['closeModal', 'addNewWorkout'],
   setup(props, { emit }) {
     const { username } = useUserSession()
     const { addWorkout } = useWorkouts(username.value)
@@ -25,7 +25,7 @@ export default {
 
     const isValidForm = ref(true)
 
-    const submitForm = () => {
+    const submitForm = async () => {
       console.log(
         username.value,
         localWorkoutTitle.value,
@@ -54,7 +54,8 @@ export default {
       }
 
       try {
-        addWorkout(workoutData)
+        await addWorkout(workoutData)
+        emit('addNewWorkout', workoutData)
         emit('closeModal')
       } catch (error) {
         console.error('Error adding workout:', error)

@@ -1,12 +1,14 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import WorkoutList from '@/components/WorkoutList.vue'
-import { useWorkouts, useUserSession } from '@/models/myFetch' // Import the Workout type
+import { useWorkouts, useUserSession } from '@/models/myFetch'
 import type { Workout } from '@/models/myFetch'
+import WorkoutModal from '@/components/WorkoutModal.vue'
 
 export default defineComponent({
   components: {
-    WorkoutList
+    WorkoutList,
+    WorkoutModal
   },
   setup() {
     const { username } = useUserSession()
@@ -22,6 +24,7 @@ export default defineComponent({
       exercise: '',
       distance: 0
     })
+
     onMounted(() => {
       fetchWorkouts()
     })
@@ -45,6 +48,7 @@ export default defineComponent({
           exercise: '',
           distance: 0
         }
+        closeModal()
       } catch (error) {
         console.error('Error adding workout:', error)
       }
@@ -71,11 +75,24 @@ export default defineComponent({
         <img class="user-icon" src="" alt="User Icon" />
         <h1 class="username">{{ username }}'s Exercise Log</h1>
       </div>
+      <!-- Button to open the modal -->
+      <button class="button is-primary" @click="openModal">Add Workout</button>
     </header>
 
     <div class="workout-container">
       <WorkoutList :workouts="workouts" />
     </div>
+
+    <!-- Workout Modal -->
+    <WorkoutModal
+      v-model:isModalOpen="isModalOpen"
+      :workoutTitle="newWorkout.title"
+      :workoutLocation="newWorkout.location"
+      :workoutDuration="newWorkout.duration"
+      :selectedExercise="newWorkout.exercise"
+      :workoutDistance="newWorkout.distance"
+      @closeModal="closeModal"
+    />
   </div>
 </template>
 
@@ -96,8 +113,9 @@ export default defineComponent({
   align-items: center;
   color: black;
 }
+
 h1 {
-  font-style: bold;
+  font-weight: bold;
 }
 
 .user-icon {
@@ -121,5 +139,9 @@ h1 {
   border-radius: 5px;
   margin-top: 1rem;
   background-color: beige;
+}
+
+.button {
+  margin-left: 10px;
 }
 </style>

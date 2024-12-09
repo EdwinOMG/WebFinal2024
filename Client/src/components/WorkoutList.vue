@@ -1,78 +1,49 @@
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
-import { useUserSession, useWorkouts } from '@/models/myFetch'
-import WorkoutItem from '@/components/WorkoutItem.vue'
-import WorkoutModal from '@/components/WorkoutModal.vue'
+import { defineComponent, watch } from 'vue'
+import { useWorkouts, useUserSession } from '@/models/myFetch'
+import WorkoutItem from './WorkoutItem.vue'
 
 const { username } = useUserSession()
 export default defineComponent({
   components: {
-    WorkoutModal,
     WorkoutItem
   },
   setup() {
-    const { workouts, totalDistance, fetchWorkouts, addWorkout } = useWorkouts(username.value)
+    const { workouts, fetchWorkouts } = useWorkouts(username.value)
 
-    const isModalOpen = ref(false)
+    fetchWorkouts()
 
-    onMounted(() => {
-      if (username.value) {
-        fetchWorkouts()
-      }
-    })
-
-    const openModal = () => {
-      isModalOpen.value = true
-    }
-
-    const closeModal = () => {
-      isModalOpen.value = false
-    }
-
-    const handleAddWorkout = async (workoutData: any) => {
-      await addWorkout(workoutData)
-      await fetchWorkouts
-      closeModal()
-    }
-
-    return {
-      isModalOpen,
-      workouts,
-      totalDistance,
-      openModal,
-      closeModal,
-      handleAddWorkout
-    }
+    return { workouts }
   }
 })
 </script>
-
 <template>
-  <div>
-    <button class="button is-primary is-light" @click="openModal">Add Workout</button>
-    <WorkoutModal :isModalOpen="isModalOpen" @close="closeModal" @add-workout="handleAddWorkout" />
+  <div class="workout-list">
+    <h2 class="title">My Workout List</h2>
     <div v-if="workouts.length > 0">
-      <WorkoutItem
-        v-for="(workout, index) in workouts"
-        :key="index"
-        :workoutItem="workout"
-        :indexed="index"
-      />
+      <div v-for="(workout, index) in workouts" :key="index">
+        <workout-item :workoutItem="workout" :indexed="index" />
+      </div>
     </div>
+    <!-- Show a message if no workouts are available -->
     <div v-else>
-      <p>No workouts found.</p>
-    </div>
-
-    <div v-if="totalDistance > 0">
-      <p>Total Distance: {{ totalDistance }} km</p>
+      <p>No workouts available. Start by adding a workout!</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.button {
-  display: block;
-  margin: auto;
-  margin-bottom: 1rem;
+.workout-list {
+  padding: 20px;
+}
+
+h2.title {
+  margin-bottom: 20px;
+}
+
+.workout-list p {
+  color: gray;
+  font-size: 1.1em;
+  text-align: center;
 }
 </style>
