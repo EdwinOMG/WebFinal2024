@@ -51,11 +51,44 @@ export function useUserSession() {
       }
     }
   })
+  const getUsers = async () => {
+    try {
+      const { data, error } = await supabase.from('User').select('username, email')
+
+      if (error) {
+        console.error('Error fetching users:', error)
+        return []
+      }
+      return data
+    } catch (error) {
+      console.error('Unexpected error fetching users:', error)
+      return []
+    }
+  }
+
+  const getUsersByQuery = async (query: string): Promise<{ username: string | null }[]> => {
+    try {
+      const { data, error } = await supabase
+        .from('User')
+        .select('username')
+        .or(`username.eq.${query},email.eq.${query}`)
+      if (error) {
+        console.error('Error fetching user by query:', error)
+        return []
+      }
+      return data ? data : []
+    } catch (error) {
+      console.error('Unexpected error fetching users:', error)
+      return []
+    }
+  }
 
   return {
     username,
     email,
-    supabase: supabaseClient
+    supabase: supabaseClient,
+    getUsers,
+    getUsersByQuery
   }
 }
 
@@ -79,7 +112,6 @@ export function useWorkouts(username: string) {
         console.error('Error fetching workouts:', error)
         return
       }
-      console.log('supabase data:', data)
       workouts.value = data || []
       totalDistance.value = workouts.value.reduce(
         (sum, workout) => sum + (workout.distance || 0),
@@ -91,7 +123,6 @@ export function useWorkouts(username: string) {
 
   const addWorkout = async (workout: Workout) => {
     const { data, error } = await supabase.from('Workouts').insert([workout])
-
     if (error) {
       console.error('Error inserting workout:', error)
     } else {
@@ -111,20 +142,112 @@ export function useWorkouts(username: string) {
   }
 }
 
-// for api
-// // creates a html script tag, calls loadscript and create a promise that will return the script when done loading.
-// //resolve and reject are parameters of the promise function to set it up
-// // if done loading call reslve, and append it( add it to last ) to the script
-// export async function loadScript(url: string): Promise<void> {
-//   return new Promise((resolve, reject) => {
-//     if (document.querySelector(`script[src="${url}"]`)) {
-//       resolve()
-//       return
-//     }
-//     const script = document.createElement('script')
-//     script.src = url
-//     script.onload = () => resolve()
-//     script.onerror = (err) => reject(err)
-//     document.head.appendChild(script)
-//   })
-// }
+interface Friend {
+  id: number
+  user_username: string
+  friend_username: string
+  friend_request: boolean
+  workouts: {
+    id: number
+    username: string
+    title: string
+    location: string
+    duration: number
+    exercise: string
+    distance: number
+  }
+}
+
+export function useFriends(username: string) {
+  const friends = ref<Friend[]>([])
+  const confirmedFriends = ref<Friend[]>([])
+  const pendingFriendRequests = ref<Friend[]>([])
+
+  const fetchFriends = async () => {
+    const { data, error } = await supabase.from('Friends').select('*').eq('user_username', username)
+    if (error) {
+      console.error('Error fetching friends:', error)
+      return
+    }
+    friends.value = data || []
+  }
+
+  const addFriend = async (user_username: string, friend_username: string) => {
+    const { data, error } = await supabase.from('Friends').insert([
+      {
+        user_username,
+        friend_username,
+        friend_request: false
+      }
+    ])
+    if (error) {
+      console.error('Error adding friend:', error)
+    } else {
+      fetchFriends() // to refresh friends list
+    }
+  }
+
+  const acceptFriendRequest = async (friend_username: string) => {
+    const { data, error } = await supabase
+      .from('Friends')
+      .update({ friend_request: true })
+      .eq('user_username', username)
+      .eq('friend_username', friend_username)
+
+    if (error) {
+      console.error('Error accepting friend request:', error)
+    } else {
+      fetchFriends()
+    }
+  }
+
+  const rejectFriendRequest = async (friend_username: string) => {
+    const { data, error } = await supabase
+      .from('Friends')
+      .delete()
+      .eq('user_username', username)
+      .eq('friend_username', friend_username)
+
+    if (error) {
+      console.error('Error rejecting friend request:', error)
+    } else {
+      fetchFriends()
+    }
+  }
+
+  const fetchConfirmedFriends = async () => {
+    const { data, error } = await supabase
+      .from('Friends')
+      .select('*')
+      .eq('user_username', username)
+      .eq('friend_request', true)
+    if (error) {
+      console.error('Error fetching confirmed friends:', error)
+      return
+    }
+    confirmedFriends.value = data || []
+  }
+
+  const fetchPendingFriendRequests = async () => {
+    const { data, error } = await supabase
+      .from('Friends')
+      .select('*')
+      .eq('user_username', username)
+      .eq('friend_request', false)
+    if (error) {
+      console.error('Error fetching pending friend requests:', error)
+      return
+    }
+    pendingFriendRequests.value = data || []
+  }
+
+  return {
+    friends,
+    fetchFriends,
+    addFriend,
+    acceptFriendRequest,
+    rejectFriendRequest,
+    fetchConfirmedFriends,
+    fetchPendingFriendRequests
+  }
+}

@@ -42,7 +42,7 @@ const logout = () => {
           <RouterLink to="/homepage" class="navbar-item"> Home </RouterLink>
           <RouterLink to="/profileview" class="navbar-item"> Profile </RouterLink>
           <RouterLink to="/logpage" class="navbar-item"> Exercise Log </RouterLink>
-          <RouterLink to="/friendpage" class="navbar-item"> Find Friends </RouterLink>
+          <RouterLink to="/friendpage" class="navbar-item"> Friends </RouterLink>
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable">
