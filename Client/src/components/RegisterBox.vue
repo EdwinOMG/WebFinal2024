@@ -26,10 +26,20 @@ const registerUser = async () => {
     alert('Please fill out all fields!')
     return
   }
+
   if (password.value !== confirmPassword.value) {
     alert('Passwords do not match!')
     return
   }
+
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
+  if (!passwordRegex.test(password.value)) {
+    alert(
+      'Password must be at least 8 characters long and include at least one number, one lowercase, and one uppercase letter.'
+    )
+    return
+  }
+
   try {
     const { data: userExists } = await supabase
       .from('User')
@@ -53,7 +63,7 @@ const registerUser = async () => {
     const { error: insertError } = await supabase.from('User').insert({
       username: username.value,
       email: email.value,
-      password: password.value, // should be hashed automatically
+      password: password.value, // Should be hashed automatically by Supabase
       role: 'user'
     })
 
