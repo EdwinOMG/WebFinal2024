@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, watch } from 'vue'
+import { defineComponent } from 'vue'
 import { useWorkouts, useUserSession } from '@/models/myFetch'
 import WorkoutItem from './WorkoutItem.vue'
 
@@ -25,7 +25,6 @@ export default defineComponent({
         <workout-item :workoutItem="workout" :indexed="index" />
       </div>
     </div>
-    <!-- Show a message if no workouts are available -->
     <div v-else>
       <p>No workouts available. Start by adding a workout!</p>
     </div>
