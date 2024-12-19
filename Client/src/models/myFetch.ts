@@ -66,20 +66,16 @@ export function useUserSession() {
     }
   }
 
-  const getUsersByQuery = async (query: string): Promise<{ username: string | null }[]> => {
-    try {
-      const { data, error } = await supabase
-        .from('User')
-        .select('username')
-        .or(`username.eq.${query},email.eq.${query}`)
-      if (error) {
-        console.error('Error fetching user by query:', error)
-        return []
-      }
-      return data ? data : []
-    } catch (error) {
-      console.error('Unexpected error fetching users:', error)
-      return []
+  async function search(query: string) {
+    const { data, error } = await supabase
+      .from('User')
+      .select('username')
+      .or(`username.ilike.%${query}%`)
+
+    return {
+      isSuccess: !error,
+      data: data,
+      message: error?.message
     }
   }
 
@@ -87,8 +83,7 @@ export function useUserSession() {
     username,
     email,
     supabase: supabaseClient,
-    getUsers,
-    getUsersByQuery
+    getUsers
   }
 }
 

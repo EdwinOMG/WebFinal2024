@@ -9,6 +9,13 @@ app.get("/", (req, res, next) => {
     .catch(next);
 });
 
+app.get("/:search", (req, res, next) => {
+  model
+    .get(req.params.search)
+    .then((x) => res.send(x))
+    .catch(next);
+});
+
 app.get("/:username", (req, res, next) => {
   const username = req.params.username;
   model
